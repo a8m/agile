@@ -1,10 +1,27 @@
 {
   "name": "agile",
   "version": "0.0.0",
- "repositoy": "a8m/agile",
-  "author": {
-    "name": "Ariel Mashraki",
-    "email": "ariel@mashraki.co.il",
-    "url": "https://github.com/a8m/agile"
-  }
+  "main": "dist/agile.js",
+  "description": "agile repo",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/a8m/agile.git"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "ignore": [
+    "node_modules",
+    "bower_components",
+    "package.json",
+    "lib",
+    "test",
+    "src",
+    "Gruntfile.js",
+    ".gitignore",
+    "README.md",
+    "travis.yml",
+    ".bowercc"
+  ]
 }

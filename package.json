@@ -1,10 +1,51 @@
 {
   "name": "agile",
+  "description": "agile repo",
   "version": "0.0.0",
-  "repositoy": "a8m/agile",
-  "author": {
-     "name": "Ariel Mashraki",
-     "email": "ariel@mashraki.co.il",
-     "url": "https://github.com/a8m/agile"
-   }
+  "filename": "agile.min.js",
+  "main": "dist/agile.min.js",
+  "homepage": "https://github.com/a8m/agile",
+  "author": "Ariel Mashraki <ariel@mashraki.co.il>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/a8m/agile.git"
+  },
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "keywords": [
+    "lazy",
+    "client",
+    "browser",
+    "filter",
+    "lodash",
+    "underscore",
+    "collection",
+    "arrays",
+    "objects"
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {
+    "grunt": "^0.4.1",
+    "grunt-cli": ">= 0.1.7",
+    "grunt-contrib-concat": "*",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-bower": "*",
+    "grunt-bower-task": "*",
+    "grunt-karma": "latest",
+    "grunt-conventional-changelog": "0.0.12",
+    "grunt-zip": "*",
+    "karma-chrome-launcher": "~0.1.2",
+    "karma-firefox-launcher": "~0.1.3",
+    "karma": "~0.12.16",
+    "karma-jasmine": "~0.1.5",
+    "karma-phantomjs-launcher": "~0.1.4",
+    "karma-coverage": "~0.2.4"
+  },
+  "scripts": {
+    "test": "grunt test --verbose"
+  },
+  "license": "MIT"
 }
