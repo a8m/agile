@@ -77,3 +77,14 @@ var isArray = Array.isArray;
  * @returns {boolean} True if `value` is a `Function`.
  */
 function isFunction(value){return typeof value === 'function';}
+
+/**
+ * Determines if a value is a regular expression object.
+ *
+ * @private
+ * @param {*} value Reference to check.
+ * @returns {boolean} True if `value` is a `RegExp`.
+ */
+function isRegExp(value) {
+  return toString.call(value) === '[object RegExp]';
+}

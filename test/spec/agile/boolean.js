@@ -93,4 +93,16 @@ describe('boolean', function() {
     });
   });
 
+  describe('#isRegExp', function() {
+    it('should get a !RegExp and return false', function() {
+      expect(isRegExp({})).toBeFalsy();
+      expect(isRegExp('[]')).toBeFalsy();
+      expect(isRegExp(3)).toBeFalsy();
+    });
+
+    it('should get a RegExp and return true', function() {
+      expect(isRegExp(/^as/g)).toBeTruthy();
+      expect(isRegExp(new RegExp())).toBeTruthy();
+    });
+  });
 });
