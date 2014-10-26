@@ -300,4 +300,184 @@ describe('utils', function() {
     });
   });
 
+  describe('#identity', function() {
+    it('should get a value and return is as-is', function() {
+      var a = {};
+      expect(identity(a) === a).toBeTruthy();
+    })
+  });
+
+  describe('forEach', function() {
+    it('should iterate over *own* object properties', function() {
+      function MyObj() {
+        this.bar = 'barVal';
+        this.baz = 'bazVal';
+      }
+      MyObj.prototype.foo = 'fooVal';
+
+      var obj = new MyObj(),
+        log = [];
+
+      forEach(obj, function(value, key) { log.push(key + ':' + value); });
+
+      expect(log).toEqual(['bar:barVal', 'baz:bazVal']);
+    });
+
+
+    it('should not break if obj is an array we override hasOwnProperty', function() {
+      /* jshint -W001 */
+      var obj = [];
+      obj[0] = 1;
+      obj[1] = 2;
+      obj.hasOwnProperty = null;
+      var log = [];
+      forEach(obj, function(value, key) {
+        log.push(key + ':' + value);
+      });
+      expect(log).toEqual(['0:1', '1:2']);
+    });
+
+    it('should handle HTMLCollection objects like arrays', function() {
+      document.body.innerHTML = "<p>" +
+        "<a name='x'>a</a>" +
+        "<a name='y'>b</a>" +
+        "<a name='x'>c</a>" +
+        "</p>";
+
+      var htmlCollection = document.getElementsByName('x'),
+        log = [];
+
+      forEach(htmlCollection, function(value, key) { log.push(key + ':' + value.innerHTML); });
+      expect(log).toEqual(['0:a', '1:c']);
+    });
+
+    if (document.querySelectorAll) {
+      it('should handle the result of querySelectorAll in IE8 as it has no hasOwnProperty function', function() {
+        document.body.innerHTML = "<p>" +
+          "<a name='x'>a</a>" +
+          "<a name='y'>b</a>" +
+          "<a name='x'>c</a>" +
+          "</p>";
+
+        var htmlCollection = document.querySelectorAll('[name="x"]'),
+          log = [];
+
+        forEach(htmlCollection, function(value, key) { log.push(key + ':' + value.innerHTML); });
+        expect(log).toEqual(['0:a', '1:c']);
+      });
+    }
+
+    it('should handle arguments objects like arrays', function() {
+      var args,
+        log = [];
+
+      (function() { args = arguments; }('a', 'b', 'c'));
+
+      forEach(args, function(value, key) { log.push(key + ':' + value); });
+      expect(log).toEqual(['0:a', '1:b', '2:c']);
+    });
+
+    it('should handle string values like arrays', function() {
+      var log = [];
+
+      forEach('bar', function(value, key) { log.push(key + ':' + value); });
+      expect(log).toEqual(['0:b', '1:a', '2:r']);
+    });
+
+
+    it('should handle objects with length property as objects', function() {
+      var obj = {
+          'foo': 'bar',
+          'length': 2
+        },
+        log = [];
+
+      forEach(obj, function(value, key) { log.push(key + ':' + value); });
+      expect(log).toEqual(['foo:bar', 'length:2']);
+    });
+
+
+    it('should handle objects of custom types with length property as objects', function() {
+      function CustomType() {
+        this.length = 2;
+        this.foo = 'bar';
+      }
+
+      var obj = new CustomType(),
+        log = [];
+
+      forEach(obj, function(value, key) { log.push(key + ':' + value); });
+      expect(log).toEqual(['length:2', 'foo:bar']);
+    });
+
+
+    it('should not invoke the iterator for indexed properties which are not present in the collection', function() {
+      var log = [];
+      var collection = [];
+      collection[5] = 'SPARSE';
+      forEach(collection, function(item, index) {
+        log.push(item + index);
+      });
+      expect(log.length).toBe(1);
+      expect(log[0]).toBe('SPARSE5');
+    });
+
+
+    describe('ES spec api compliance', function() {
+
+      function testForEachSpec(expectedSize, collection) {
+        var that = {};
+
+        forEach(collection, function(value, key, collectionArg) {
+          expect(collectionArg).toBe(collection);
+          expect(collectionArg[key]).toBe(value);
+
+          expect(this).toBe(that);
+
+          expectedSize--;
+        }, that);
+
+        expect(expectedSize).toBe(0);
+      }
+
+
+      it('should follow the ES spec when called with array', function() {
+        testForEachSpec(2, [1,2]);
+      });
+
+
+      it('should follow the ES spec when called with arguments', function() {
+        testForEachSpec(2, (function() { return arguments; }(1,2)));
+      });
+
+
+      it('should follow the ES spec when called with string', function() {
+        testForEachSpec(2, '12');
+      });
+
+      it('should follow the ES spec when called with JSON', function() {
+        testForEachSpec(2, {a: 1, b: 2});
+      });
+
+
+      it('should follow the ES spec when called with function', function() {
+        function f() {}
+        f.a = 1;
+        f.b = 2;
+        testForEachSpec(2, f);
+      });
+    });
+  });
+
+  describe('#minErr', function() {
+    it('should return a function', function() {
+      expect(typeof minErr('module')).toEqual('function');
+    });
+
+    it('should throw an error with enumarable params', function() {
+      expect(minErr('$parse')('parsing {0}', 'error')).toEqual(Error('[$parse:]parsing error'));
+      expect(minErr('$parse')('{1} {0}', 'error', 'parsing')).toEqual(Error('[$parse:]parsing error'));
+    });
+  });
+
 });

@@ -970,14 +970,14 @@ function getValueOf(value) {
  * `$parseProvider` can be used for configuring the default behavior of the {@link ng.$parse $parse}
  *  service.
  */
-function $ParseProvider() {
+var $parse = (function $ParseProvider() {
   var cache = createMap();
 
   var $parseOptions = {
     csp: false
   };
 
-  return function $parse(exp, interceptorFn) {
+  return function (exp, interceptorFn) {
     var parsedExpression, oneTime, cacheKey;
 
     switch (typeof exp) {
@@ -1018,4 +1018,4 @@ function $ParseProvider() {
       return isDefined(value) ? result : value;
     };
   }
-}
+})();
