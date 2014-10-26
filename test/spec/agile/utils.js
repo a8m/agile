@@ -101,4 +101,203 @@ describe('utils', function() {
     });
   });
 
+  describe('#extend', function() {
+    it('should extends object with multiple arguments', function() {
+      var a = {}, b = { b: 1 }, c = { c: 1 };
+      extend(a, b, c);
+      expect(a).toEqual({ b: 1, c: 1 });
+    });
+
+    it('should override existing keys with the extends keys', function() {
+      var a = { a: 1 }, b = { b: 1 }, c = { a: 2, c: 1 };
+      extend(a, b, c);
+      expect(a).toEqual({ a: 2, b: 1, c: 1 });
+    });
+  });
+
+  describe('#createMap', function() {
+    it('should create object without prototype', function() {
+      var map = createMap();
+      expect(map.toString).toBeUndefined();
+    });
+  });
+
+  describe('#noop', function() {
+    it('should not performs operations.', function() {
+      expect(noop()).toBeUndefined();
+    });
+  });
+
+  describe('case', function() {
+    it('should change case', function() {
+      expect(lowercase('ABC90')).toEqual('abc90');
+      expect(uppercase('abc90')).toEqual('ABC90');
+    });
+
+    it('should get a not string and return it as-is', function() {
+      expect(lowercase({})).toEqual({});
+      expect(uppercase([])).toEqual([]);
+    });
+  });
+
+  describe('toJson', function() {
+    it('should call to JSON.stringify', function() {
+      var spy = spyOn(JSON, 'stringify').andCallThrough();
+      expect(toJson({})).toEqual('{}');
+      expect(spy).toHaveBeenCalledWith({});
+    });
+
+    it('should serialize undefined as undefined', function() {
+      expect(toJson(undefined)).toEqual(undefined);
+    });
+  });
+
+  describe("copy", function() {
+    it("should return same object", function() {
+      var obj = {};
+      var arr = [];
+      expect(copy({}, obj)).toBe(obj);
+      expect(copy([], arr)).toBe(arr);
+    });
+
+    it("should preserve prototype chaining", function() {
+      var GrandParentProto = {};
+      var ParentProto = Object.create(GrandParentProto);
+      var obj = Object.create(ParentProto);
+      expect(ParentProto.isPrototypeOf(copy(obj))).toBe(true);
+      expect(GrandParentProto.isPrototypeOf(copy(obj))).toBe(true);
+      var Foo = function() {};
+      expect(copy(new Foo()) instanceof Foo).toBe(true);
+    });
+
+    it("should copy Date", function() {
+      var date = new Date(123);
+      expect(copy(date) instanceof Date).toBeTruthy();
+      expect(copy(date).getTime()).toEqual(123);
+      expect(copy(date) === date).toBeFalsy();
+    });
+
+    it("should copy RegExp", function() {
+      var re = new RegExp(".*");
+      expect(copy(re) instanceof RegExp).toBeTruthy();
+      expect(copy(re).source).toBe(".*");
+      expect(copy(re) === re).toBe(false);
+    });
+
+    it("should copy literal RegExp", function() {
+      var re = /.*/;
+      expect(copy(re) instanceof RegExp).toBeTruthy();
+      expect(copy(re).source).toEqual(".*");
+      expect(copy(re) === re).toBeFalsy();
+    });
+
+    it("should copy RegExp with flags", function() {
+      var re = new RegExp('.*', 'gim');
+      expect(copy(re).global).toBe(true);
+      expect(copy(re).ignoreCase).toBe(true);
+      expect(copy(re).multiline).toBe(true);
+    });
+
+    it("should copy RegExp with lastIndex", function() {
+      var re = /a+b+/g;
+      var str = 'ab aabb';
+      expect(re.exec(str)[0]).toEqual('ab');
+      expect(copy(re).exec(str)[0]).toEqual('aabb');
+    });
+
+    it("should deeply copy literal RegExp", function() {
+      var objWithRegExp = {
+        re: /.*/
+      };
+      expect(copy(objWithRegExp).re instanceof RegExp).toBeTruthy();
+      expect(copy(objWithRegExp).re.source).toEqual(".*");
+      expect(copy(objWithRegExp.re) === objWithRegExp.re).toBeFalsy();
+    });
+
+    it("should deeply copy an array into an existing array", function() {
+      var src = [1, {name:"value"}];
+      var dst = [{key:"v"}];
+      expect(copy(src, dst)).toBe(dst);
+      expect(dst).toEqual([1, {name:"value"}]);
+      expect(dst[1]).toEqual({name:"value"});
+      expect(dst[1]).not.toBe(src[1]);
+    });
+
+    it("should deeply copy an array into a new array", function() {
+      var src = [1, {name:"value"}];
+      var dst = copy(src);
+      expect(src).toEqual([1, {name:"value"}]);
+      expect(dst).toEqual(src);
+      expect(dst).not.toBe(src);
+      expect(dst[1]).not.toBe(src[1]);
+    });
+
+    it('should copy empty array', function() {
+      var src = [];
+      var dst = [{key: "v"}];
+      expect(copy(src, dst)).toEqual([]);
+      expect(dst).toEqual([]);
+    });
+
+    it("should deeply copy an object into an existing object", function() {
+      var src = {a:{name:"value"}};
+      var dst = {b:{key:"v"}};
+      expect(copy(src, dst)).toBe(dst);
+      expect(dst).toEqual({a:{name:"value"}});
+      expect(dst.a).toEqual(src.a);
+      expect(dst.a).not.toBe(src.a);
+    });
+
+    it("should deeply copy an object into a non-existing object", function() {
+      var src = {a:{name:"value"}};
+      var dst = copy(src, undefined);
+      expect(src).toEqual({a:{name:"value"}});
+      expect(dst).toEqual(src);
+      expect(dst).not.toBe(src);
+      expect(dst.a).toEqual(src.a);
+      expect(dst.a).not.toBe(src.a);
+    });
+
+    it("should copy primitives", function() {
+      expect(copy(null)).toEqual(null);
+      expect(copy('')).toBe('');
+      expect(copy('lala')).toBe('lala');
+      expect(copy(123)).toEqual(123);
+      expect(copy([{key:null}])).toEqual([{key:null}]);
+    });
+
+    it('should throw an exception if a Window is being copied', function() {
+      expect(function() { copy(window); }).toThrow
+        (Error("Can't copy! Making copies of Window instances is not supported."));
+    });
+
+    it('should throw an exception when source and destination are equivalent', function() {
+      var src, dst;
+      src = dst = {key: 'value'};
+      expect(function() { copy(src, dst); }).toThrow(Error("Can't copy! Source and destination are identical."));
+      src = dst = [2, 4];
+      expect(function() { copy(src, dst); }).toThrow(Error("Can't copy! Source and destination are identical."));
+    });
+
+    it('should handle circular references when circularRefs is turned on', function() {
+      var a = {b: {a: null}, self: null, selfs: [null, null, [null]]};
+      a.b.a = a;
+      a.self = a;
+      a.selfs = [a, a.b, [a]];
+
+      var aCopy = copy(a, null);
+      expect(aCopy).toEqual(a);
+
+      expect(aCopy).not.toBe(a);
+      expect(aCopy).toBe(aCopy.self);
+      expect(aCopy.selfs[2]).not.toBe(a.selfs[2]);
+    });
+
+    it('should clear destination arrays correctly when source is non-array', function() {
+      expect(copy(null, [1,2,3])).toEqual([]);
+      expect(copy(undefined, [1,2,3])).toEqual([]);
+      expect(copy({0: 1, 1: 2}, [1,2,3])).toEqual([1,2]);
+    });
+  });
+
 });
