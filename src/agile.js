@@ -36,3 +36,10 @@ agile.noop      = noop;
 agile.uppercase = uppercase;
 agile.lowercase = lowercase;
 agile.toJson    = toJson;
+
+//@static array methods
+agile.after       = after;
+agile.afterWhere  = afterWhere;
+agile.before      = before;
+agile.beforeWhere = beforeWhere;
+agile.map         = map;
