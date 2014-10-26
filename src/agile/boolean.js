@@ -1,4 +1,4 @@
-
+// AngularJS Boolean
 /**
  * @description
  * Determines if a reference is a `String`.

@@ -1,3 +1,4 @@
+// AngularJS Utils
 /**
  * @description
  * Determines if two objects or two values are equivalent. Supports value types, regular
