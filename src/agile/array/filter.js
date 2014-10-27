@@ -1,20 +1,20 @@
 /**
- * @name every
+ * @name filter
  * @kind function
  *
  * @description
- * Checks if given exp is present in all members in the array
+ * filter by $parse:expression,
+ * return all elements that return true, avoid the rest
  */
-function every(array, exp) {
+function filter(array, exp) {
 
   if(!isArray(array) || isUndefined(exp)) {
-    return true;
+    return array;
   }
 
-  return array.every(function(elm) {
+  return array.filter(function(elm) {
     return (isObject(elm) || isFunction(exp))
       ? $parse(exp)(elm)
       : elm === exp;
   });
-
 }
