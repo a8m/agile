@@ -1,5 +1,18 @@
 /**
  * @description
+ * get object and return it's keys,
+ * if deep set to true, it will return it deeply.
+ * @param obj {Object}
+ * @param deep {Boolean}
+ */
+function objKeys(obj, deep) {
+  return isObject(obj)
+    ? (deep) ? deepKeys(obj) : Object.keys(obj)
+    : obj;
+}
+
+/**
+ * @description
  * Get an object, and return an array composed of it's properties names(nested too).
  * @param obj {Object}
  * @param stack {Array}
