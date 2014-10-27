@@ -19,7 +19,8 @@ module.exports = function(config) {
     reporters: ['coverage'],
     //files to coverage
     preprocessors: {
-      "src/**/*js": "coverage"
+      "src/agile/*js": "coverage",
+      "src/*js": "coverage"
     },
 
     coverageReporter: {
