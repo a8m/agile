@@ -43,5 +43,6 @@ agile.afterWhere  = afterWhere;
 agile.before      = before;
 agile.beforeWhere = beforeWhere;
 agile.contains    = contains;
+agile.countBy     = countBy;
 agile.map         = map;
 agile.some        = contains;
