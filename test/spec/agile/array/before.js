@@ -11,6 +11,10 @@ describe('before', function() {
     expect(before([1,2,3,4], 5)).toEqual([1,2,3,4]);
   });
 
+  it('should not get count and return the array as-is', function() {
+    expect(before([1,2,4])).toEqual([1,2,4]);
+  });
+
   it('should get a !collection and return it as-is', function() {
     expect(before(!1)).toBeFalsy();
     expect(before(1)).toEqual(1);
