@@ -479,5 +479,4 @@ describe('utils', function() {
       expect(minErr('$parse')('{1} {0}', 'error', 'parsing')).toEqual(Error('[$parse:]parsing error'));
     });
   });
-
 });

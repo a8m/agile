@@ -26,6 +26,7 @@ agile.isDefined   = isDefined;
 agile.isArray     = isArray;
 agile.isDate      = isDate;
 agile.isFunction  = isFunction;
+agile.isEmpty     = isEmpty;
 
 //@static utils methods
 agile.equals    = equals;
@@ -50,6 +51,7 @@ agile.some        = contains;
 agile.first       = first;
 agile.last        = last;
 agile.flatten     = flatten;
+agile.groupBy     = groupBy;
 
 //@static object methods
 agile.keys        = objKeys;

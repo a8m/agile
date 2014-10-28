@@ -105,4 +105,18 @@ describe('boolean', function() {
       expect(isRegExp(new RegExp())).toBeTruthy();
     });
   });
+
+  describe('#isEmpty', function() {
+    it('should get an array or string and return if it empty', function() {
+      expect(isEmpty([1])).toBeFalsy();
+      expect(isEmpty(' ')).toBeFalsy();
+      expect(isEmpty([])).toBeTruthy();
+      expect(isEmpty('')).toBeTruthy();
+    });
+
+    it('should get not string/array and return false', function() {
+      expect(isEmpty(1)).toBeFalsy();
+      expect(isEmpty({})).toBeFalsy();
+    });
+  });
 });
