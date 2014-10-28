@@ -45,7 +45,10 @@ agile.beforeWhere = beforeWhere;
 agile.contains    = contains;
 agile.countBy     = countBy;
 agile.defaults    = defaults;
-agile.keys        = objKeys;
 agile.map         = map;
 agile.some        = contains;
 agile.first       = first;
+agile.last        = last;
+
+//@static object methods
+agile.keys        = objKeys;
