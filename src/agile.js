@@ -49,6 +49,7 @@ agile.map         = map;
 agile.some        = contains;
 agile.first       = first;
 agile.last        = last;
+agile.flatten     = flatten;
 
 //@static object methods
 agile.keys        = objKeys;
