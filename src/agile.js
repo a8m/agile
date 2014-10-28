@@ -48,3 +48,4 @@ agile.defaults    = defaults;
 agile.keys        = objKeys;
 agile.map         = map;
 agile.some        = contains;
+agile.first       = first;
