@@ -70,3 +70,4 @@ agile.stringular  = stringular;
 agile.stripTags   = stripTags;
 agile.truncate    = truncate;
 agile.ucfirst     = ucfirst;
+agile.wrap        = wrap;
