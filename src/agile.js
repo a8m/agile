@@ -57,7 +57,8 @@ agile.pick        = filter;
 agile.remove      = remove;
 agile.reverse     = reverse;
 agile.unique      = unique;
-agile.uniq        = uniq;
+agile.uniq        = unique;
+agile.xor         = xor;
 
 //@static object methods
 agile.keys    = objKeys;
