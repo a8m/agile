@@ -54,3 +54,6 @@ agile.xor         = xor;
 //@static object methods
 agile.keys    = objKeys;
 agile.toArray = toArray;
+
+//@static strings methods
+agile.endsWith = endsWith;
