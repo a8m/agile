@@ -52,6 +52,7 @@ agile.uniq        = unique;
 agile.xor         = xor;
 agile.max         = max;
 agile.min         = min;
+agile.sum         = sum;
 
 //@static object methods
 agile.keys    = objKeys;
