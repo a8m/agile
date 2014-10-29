@@ -59,8 +59,9 @@ agile.keys    = objKeys;
 agile.toArray = toArray;
 
 //@static strings methods
-agile.endsWith = endsWith;
-agile.ltrim    = ltrim;
-agile.rtrim    = rtrim;
-agile.repeat   = repeat;
-agile.slugify  = slugify;
+agile.startsWith  = startsWith;
+agile.endsWith    = endsWith;
+agile.ltrim       = ltrim;
+agile.rtrim       = rtrim;
+agile.repeat      = repeat;
+agile.slugify     = slugify;
