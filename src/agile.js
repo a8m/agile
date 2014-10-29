@@ -57,3 +57,4 @@ agile.toArray = toArray;
 
 //@static strings methods
 agile.endsWith = endsWith;
+agile.ltrim    = ltrim;
