@@ -50,6 +50,7 @@ agile.reverse     = reverse;
 agile.unique      = unique;
 agile.uniq        = unique;
 agile.xor         = xor;
+agile.max         = max;
 
 //@static object methods
 agile.keys    = objKeys;
