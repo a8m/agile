@@ -61,6 +61,7 @@ agile.toArray = toArray;
 //@static strings methods
 agile.startsWith  = startsWith;
 agile.endsWith    = endsWith;
+agile.trim        = trim;
 agile.ltrim       = ltrim;
 agile.rtrim       = rtrim;
 agile.repeat      = repeat;
