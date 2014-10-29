@@ -58,4 +58,5 @@ agile.remove      = remove;
 agile.reverse     = reverse;
 
 //@static object methods
-agile.keys        = objKeys;
+agile.keys    = objKeys;
+agile.toArray = toArray;
