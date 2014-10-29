@@ -63,3 +63,4 @@ agile.endsWith = endsWith;
 agile.ltrim    = ltrim;
 agile.rtrim    = rtrim;
 agile.repeat   = repeat;
+agile.slugify  = slugify;
