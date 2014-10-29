@@ -54,6 +54,7 @@ agile.flatten     = flatten;
 agile.groupBy     = groupBy;
 agile.omit        = omit;
 agile.pick        = filter;
+agile.remove      = remove;
 
 //@static object methods
 agile.keys        = objKeys;
