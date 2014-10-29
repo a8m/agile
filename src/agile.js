@@ -66,3 +66,4 @@ agile.rtrim       = rtrim;
 agile.repeat      = repeat;
 agile.slugify     = slugify;
 agile.stringular  = stringular;
+agile.stripTags   = stripTags;
