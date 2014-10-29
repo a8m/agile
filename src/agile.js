@@ -6,15 +6,6 @@
  * @returns {Object} Returns a `agile` instance.
  */
 function agile(value) {
-  // if it's defined, and already wrapped.
-  if (value && value.__wrapped__) {
-    return value;
-  }
-  // allow invoking `agile` without the `new` operator
-  if (!(this instanceof agile)) {
-    return new agile(value);
-  }
-  this.__wrapped__ = value;
 }
 
 // @static boolean methods
