@@ -55,6 +55,7 @@ agile.groupBy     = groupBy;
 agile.omit        = omit;
 agile.pick        = filter;
 agile.remove      = remove;
+agile.reverse     = reverse;
 
 //@static object methods
 agile.keys        = objKeys;
