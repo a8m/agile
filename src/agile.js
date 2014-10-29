@@ -52,6 +52,7 @@ agile.first       = first;
 agile.last        = last;
 agile.flatten     = flatten;
 agile.groupBy     = groupBy;
+agile.omit        = omit;
 
 //@static object methods
 agile.keys        = objKeys;
