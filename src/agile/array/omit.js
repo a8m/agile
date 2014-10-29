@@ -5,13 +5,15 @@
  * @description
  * get an array, and return a new array without the omitted objects(by expression).
  */
-function omit(array, expression) {
+function omit(array, exp) {
 
-  if(!isArray(array) || isUndefined(expression)) {
+  if(!isArray(array) || isUndefined(exp)) {
     return array;
   }
 
-  return array.filter(function (elm) {
-    return !($parse(expression)(elm));
+  return array.filter(function(elm) {
+    return (isObject(elm) || isFunction(exp))
+      ? !$parse(exp)(elm)
+      : elm !== exp;
   });
 }

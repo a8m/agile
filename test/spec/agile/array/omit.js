@@ -20,8 +20,13 @@ describe('omit', function() {
       null, false, 2, 'string',
       { details: { id: 2 } },
       { details: { id: 1 } }
-    ]
+    ];
     expect(omit(array, 'details.id > 0')).toEqual([null, false, 2, 'string']);
+  });
+
+  it('should work with primitives', function() {
+    var array = [7,7,4,3,6,7,7];
+    expect(omit(array, 7)).toEqual([4,3,6]);
   });
 
   it('should get function as expression', function() {

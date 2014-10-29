@@ -53,6 +53,7 @@ agile.last        = last;
 agile.flatten     = flatten;
 agile.groupBy     = groupBy;
 agile.omit        = omit;
+agile.pick        = filter;
 
 //@static object methods
 agile.keys        = objKeys;
