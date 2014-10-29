@@ -68,3 +68,5 @@ agile.repeat      = repeat;
 agile.slugify     = slugify;
 agile.stringular  = stringular;
 agile.stripTags   = stripTags;
+agile.truncate    = truncate;
+agile.ucfirst     = ucfirst;
