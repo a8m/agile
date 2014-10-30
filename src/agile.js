@@ -37,6 +37,7 @@ agile.defaults    = defaults;
 agile.map         = map;
 agile.some        = contains;
 agile.first       = first;
+agile.filter      = filter;
 agile.last        = last;
 agile.flatten     = flatten;
 agile.groupBy     = groupBy;
