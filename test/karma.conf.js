@@ -19,8 +19,8 @@ module.exports = function(config) {
     reporters: ['coverage'],
     //files to coverage
     preprocessors: {
-      "src/agile/*": "coverage",
-      "src/agile/*/*": "coverage",
+      "src/_agile/*": "coverage",
+      "src/_agile/*/*": "coverage",
       "src/*": "coverage"
     },
 
@@ -31,11 +31,11 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'src/agile/boolean.js',
-      'src/agile/utils.js',
+      'src/_agile/boolean.js',
+      'src/_agile/utils.js',
       'src/common.js',
-      'src/parse/*.js',
-      'src/agile/**/*.js',
+      'src/_parse/*.js',
+      'src/_agile/**/*.js',
       'src/agile.js',
       'test/spec/**/*.js',
       'test/spec/**/**/*.js'

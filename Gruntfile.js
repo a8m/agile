@@ -22,10 +22,12 @@ module.exports = function(grunt) {
       options: {
         banner: '<%= meta.banner %>' + '\n' +
           '(function ( context, undefined ) {' + '\n',
-        footer: '})( this );'
+        footer: '//@expose' + '\n' +
+          'context.agile = agile;' + '\n\n' +
+          '})( this );'
       },
       dist: {
-        src: ['src/**/*.js'],
+        src: ['src/common.js', 'src/**/*.js', 'src/agile.js'],
         dest: '<%= dirs.dest %>/<%= pkg.name %>.js'
       }
     },

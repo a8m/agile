@@ -1,9 +1,6 @@
 /**
- * The `agile` function.
- * @name _
- * @constructor
- * @param {Mixed} value The value to wrap in a `agile` instance.
- * @returns {Object} Returns a `agile` instance.
+ *
+ * @param value
  */
 function agile(value) {
 }
