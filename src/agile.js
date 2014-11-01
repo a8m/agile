@@ -70,7 +70,7 @@ function StringWrapper(value) {
   this.__value__ = value;
 }
 //bind the methods to StringWrapper.prototype
-var stringWrapperMethods = flatten(PROTO_METHODS.STRING, AGILE_METHODS.STRING);
+var stringWrapperMethods = flatten([PROTO_METHODS.STRING, AGILE_METHODS.STRING, AGILE_METHODS.BASE]);
 defineWrapperPrototype(StringWrapper, stringWrapperMethods, String.prototype);
 
 /**
@@ -83,7 +83,7 @@ function ArrayWrapper(value) {
   this.__value__ = value;
 }
 //bind the collection methods to ArrayWrapper.prototype and agile
-var arrayWrapperMethods = flatten(PROTO_METHODS.ARRAY, AGILE_METHODS.ARRAY);
+var arrayWrapperMethods = flatten([PROTO_METHODS.ARRAY, AGILE_METHODS.ARRAY, AGILE_METHODS.BASE]);
 defineWrapperPrototype(ArrayWrapper, arrayWrapperMethods, Array.prototype);
 
 
@@ -95,7 +95,7 @@ function agile(value) {
   return new ArrayWrapper(value);
 }
 //@static methods as wrappers
-var agileStaticMethods = flatten(AGILE_METHODS.ARRAY, AGILE_METHODS.STRING);
+var agileStaticMethods = flatten([AGILE_METHODS.ARRAY, AGILE_METHODS.STRING]);
 defineStaticMethods(agile, agileStaticMethods);
 
 // @static boolean methods
