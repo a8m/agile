@@ -1,5 +1,13 @@
 /**
  * @const
+ * constant RegExp contains all unwrapped function
+ * that return the result and not an WrapperInstance
+ * @type {RegExp}
+ */
+var UNWRAPPED_FUNC = /^(?:value|identity)$/;
+
+/**
+ * @const
  * prototype methods, used for chaining and static methods
  */
 var PROTO_METHODS = {
@@ -8,48 +16,75 @@ var PROTO_METHODS = {
 };
 
 var AGILE_METHODS = {
+  BASE  : [value],
   STRING: [startsWith, endsWith, trim, ltrim, rtrim, repeat, slugify, stringular, stripTags, truncate, ucfirst, wrap],
-  ARRAY:  [after, afterWhere, before, beforeWhere, contains, countBy, defaults, map, contains, first,
+  ARRAY : [after, afterWhere, before, beforeWhere, contains, countBy, defaults, map, contains, first,
           filter, last, flatten, groupBy, omit, filter, remove, reverse, unique, xor, max, min, sum]
 };
 
 /**
- * StringWrapper
- * @param value
- * @constructor
+ * @private
+ * @description
+ * get a constructor and extends it's prototype.
+ * based on the real type prototype + relevant static methods
+ * @param ctor
+ * @param methods
+ * @param prototype
+ */
+function defineWrapperPrototype(ctor, methods, prototype) {
+  forEach(methods, function(method) {
+    var methodName = isString(method) ? method : method.name;
+    var func = isString(method) ? prototype[method] : method;
+    ctor.prototype[methodName] = function() {
+      var args = [this.__value__].concat(Array.prototype.slice.call(arguments));
+      var res  = isString(method)
+        ? func.call(this.__value__, arguments)
+        : func.apply(this, args);
+      return UNWRAPPED_FUNC.test(methodName)
+        ? res
+        : agile(res);
+    };
+  });
+}
+
+/**
+ * @private
+ * @description
+ * get a constructor and extends it's static methods based on given list
+ * @param ctor
+ * @param methods
+ */
+function defineStaticMethods(ctor, methods) {
+  forEach(methods, function(method) {
+    ctor[method.name] = method;
+  });
+}
+
+/**
+ * @constructor StringWrapper
+ * @description
+ * wraps a string and implements the methods of agile and String.prototype
+ * @param value {String}
  */
 function StringWrapper(value) {
   this.__value__ = value;
 }
-//bind the methods to StringWrapper.prototype and agile
-forEach(PROTO_METHODS.STRING, function(methodName) {
-  StringWrapper.prototype[methodName] = function() {
-    var func = String.prototype[methodName];
-    var res  = func.apply(this.__value__, arguments);
-    return isString(res)
-      ? new StringWrapper(res)
-      : new ArrayWrapper(res)
-  }
-});
+//bind the methods to StringWrapper.prototype
+var stringWrapperMethods = flatten(PROTO_METHODS.STRING, AGILE_METHODS.STRING);
+defineWrapperPrototype(StringWrapper, stringWrapperMethods, String.prototype);
 
 /**
- * ArrayWrapper
- * @param value
- * @constructor
+ * @constructor ArrayWrapper
+ * @description
+ * wraps an array and implements the methods of agile and Array.prototype
+ * @param value {Array}
  */
 function ArrayWrapper(value) {
   this.__value__ = value;
 }
-//bind the methods to StringWrapper.prototype and agile
-forEach(PROTO_METHODS.ARRAY, function(methodName) {
-  ArrayWrapper.prototype[methodName] = function() {
-    var func = Array.prototype[methodName];
-    var res  = func.apply(this.__value__, arguments);
-    return isString(res)
-      ? new StringWrapper(res)
-      : new ArrayWrapper(res)
-  }
-});
+//bind the collection methods to ArrayWrapper.prototype and agile
+var arrayWrapperMethods = flatten(PROTO_METHODS.ARRAY, AGILE_METHODS.ARRAY);
+defineWrapperPrototype(ArrayWrapper, arrayWrapperMethods, Array.prototype);
 
 
 /**
@@ -59,6 +94,9 @@ forEach(PROTO_METHODS.ARRAY, function(methodName) {
 function agile(value) {
   return new ArrayWrapper(value);
 }
+//@static methods as wrappers
+var agileStaticMethods = flatten(AGILE_METHODS.ARRAY, AGILE_METHODS.STRING);
+defineStaticMethods(agile, agileStaticMethods);
 
 // @static boolean methods
 agile.isString    = isString;
@@ -73,55 +111,15 @@ agile.isEmpty     = isEmpty;
 
 //@static utils methods
 agile.equals    = equals;
-agile.identity  = identity;
+agile.identity  = value;
 agile.extend    = extend;
-agile.createMap = createMap;
+agile.Map       = createMap;
 agile.noop      = noop;
 agile.uppercase = uppercase;
 agile.lowercase = lowercase;
 agile.toJson    = toJson;
 agile.forEach   = forEach;
 
-//@static array methods
-agile.after       = after;
-agile.afterWhere  = afterWhere;
-agile.before      = before;
-agile.beforeWhere = beforeWhere;
-agile.contains    = contains;
-agile.countBy     = countBy;
-agile.defaults    = defaults;
-agile.map         = map;
-agile.some        = contains;
-agile.first       = first;
-agile.filter      = filter;
-agile.last        = last;
-agile.flatten     = flatten;
-agile.groupBy     = groupBy;
-agile.omit        = omit;
-agile.pick        = filter;
-agile.remove      = remove;
-agile.reverse     = reverse;
-agile.unique      = unique;
-agile.uniq        = unique;
-agile.xor         = xor;
-agile.max         = max;
-agile.min         = min;
-agile.sum         = sum;
-
 //@static object methods
 agile.keys    = objKeys;
 agile.toArray = toArray;
-
-//@static strings methods
-agile.startsWith  = startsWith;
-agile.endsWith    = endsWith;
-agile.trim        = trim;
-agile.ltrim       = ltrim;
-agile.rtrim       = rtrim;
-agile.repeat      = repeat;
-agile.slugify     = slugify;
-agile.stringular  = stringular;
-agile.stripTags   = stripTags;
-agile.truncate    = truncate;
-agile.ucfirst     = ucfirst;
-agile.wrap        = wrap;

@@ -52,8 +52,7 @@ function equals(o1, o2) {
  * @description
  * A function that returns its first argument.
  */
-function identity(a) {return a;}
-
+function value(a) {return a;}
 
 /**
  * @description
