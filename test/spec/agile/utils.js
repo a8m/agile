@@ -301,6 +301,7 @@ describe('utils', function() {
   });
 
   describe('#identity', function() {
+    var identity = value;
     it('should get a value and return is as-is', function() {
       var a = {};
       expect(identity(a) === a).toBeTruthy();
