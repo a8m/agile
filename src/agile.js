@@ -134,7 +134,7 @@ function getWrapperCtor(val) {
     case 'object':
       return isArray(val) ? ArrayWrapper : ObjectWrapper;
     default :
-      throw new Error('Agile value can\'t get ['+ typeof val + '] as an argument');
+      throw Error('Agile value can\'t be ['+ typeof val + '] as an argument');
   }
 }
 
