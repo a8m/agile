@@ -40,11 +40,11 @@ function defineWrapperPrototype(ctor, methods, prototype) {
       : isObject(method) ? method.action //if it's method with custom name
       : method;
     ctor.prototype[methodName] = function() {
-      var args = [this.__value__].concat(Array.prototype.slice.call(arguments));
+      var fnArgs = Array.prototype.slice.call(arguments);
+      var args   = [this.__value__].concat(fnArgs);
       //if it's a prototype function, but not a static function, e.g: Math.pow
-      //I'm not proud of this, but it'll get the job done for now.
-      var res  = isString(method) && !(prototype[methodName])
-        ? func.call(this.__value__, arguments)
+      var res  = isString(method) && !(prototype.E)
+        ? func.call(this.__value__, fnArgs)
         : func.apply(this, args);
       return UNWRAPPED_FUNC.test(methodName)
         ? res
