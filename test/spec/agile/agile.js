@@ -21,6 +21,11 @@ describe('agile.js', function() {
     it('should return the __value__ on value() invoke', function() {
       expect(_([1,2,3]).value()).toEqual([1,2,3]);
     });
+
+    it('should get wrapped value and return it as-is', function() {
+      var wrapped = _([]);
+      expect(_(wrapped) === wrapped).toBeTruthy();
+    });
   });
 
   describe('::ArrayWrapper', function() {
