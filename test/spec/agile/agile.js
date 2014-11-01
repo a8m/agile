@@ -133,4 +133,41 @@ describe('agile.js', function() {
     });
   });
 
+  describe('chaining in action', function() {
+    var orders = [
+      { id:1, customer: { name: 'foo', id: 10 } },
+      { id:2, customer: { name: 'bar', id: 20 } },
+      { id:3, customer: { name: 'baz', id: 10 } },
+      { id:4, customer: { name: 'zoe', id: 20 } },
+      { id:5, customer: { name: 'toy', id: 30 } }
+    ];
+    it('should works with different chaining', function() {
+      expect(_(orders)
+        .unique('customer.id')
+        .map('id')
+        .sum()
+        .pow(3)
+        .value()).toEqual(512);
+
+      expect(_(orders)
+        .filter('!(id%2)')
+        .map('id')
+        .join()
+        .repeat(2)
+        .value()).toEqual('2424');
+
+      expect(_(orders)
+        .first(2, 'id > 1')
+        .map('id')
+        .max()
+        .value()).toEqual(3);
+
+      expect(_(orders)
+        .last(2, 'id')
+        .map('id')
+        .min()
+        .value()).toEqual(4);
+    });
+
+  });
 });
