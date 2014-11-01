@@ -52,9 +52,18 @@ function minErr(module, ErrorConstructor) {
   };
 }
 
-
+/**
+ * @private
+ * @description
+ * function that get a value and return another function
+ * that return this value
+ * @example
+ * 1. valueFn(function (e) { return e; })() ==> function (e) { return e }
+ * 2. valueFn(e)()                          ==> e
+ * @param value
+ * @returns {Function}
+ */
 function valueFn(value) {return function() {return value;};}
-
 
 /**
  *
