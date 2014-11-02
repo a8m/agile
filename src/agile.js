@@ -63,7 +63,7 @@ function defineWrapperPrototype(ctor, methods, prototype) {
  */
 function defineStaticMethods(ctor, methods) {
   forEach(methods, function(method) {
-    ctor[method.name] = method;
+    ctor[method.name] = isFunction(method) ? method : method.action;
   });
 }
 
@@ -153,7 +153,7 @@ function agile(value) {
   }
 }
 //@static methods as wrappers
-var agileStaticMethods = flatten([AGILE_METHODS.ARRAY, AGILE_METHODS.STRING]);
+var agileStaticMethods = flatten([AGILE_METHODS.ARRAY, AGILE_METHODS.STRING, AGILE_METHODS.OBJECT]);
 defineStaticMethods(agile, agileStaticMethods);
 
 // @static boolean methods
@@ -177,7 +177,3 @@ agile.uppercase = uppercase;
 agile.lowercase = lowercase;
 agile.toJson    = toJson;
 agile.forEach   = forEach;
-
-//@static object methods
-agile.keys    = objKeys;
-agile.toArray = toArray;

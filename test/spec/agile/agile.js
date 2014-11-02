@@ -2,12 +2,30 @@
 describe('agile.js', function() {
   var _ = agile;
 
+  describe('@static methods', function() {
+    it('should have the aliases static methods', function() {
+      expect(_.pluck).toEqual(_.map);
+      expect(_.pluck).not.toEqual(_.filter);
+      expect(_.pick).toEqual(_.filter);
+      expect(_.pick).not.toEqual(_.map);
+      expect(_.some).toEqual(_.contains);
+      expect(_.keys).toEqual(objKeys);
+      expect(_.toArray).toEqual(toArray);
+    });
+  });
+
   describe('::agile()', function() {
     it('should return instance of Wrapper based on the type', function() {
       expect(_([]).constructor.name).toEqual('ArrayWrapper');
       expect(_({}).constructor.name).toEqual('ObjectWrapper');
       expect(_('').constructor.name).toEqual('StringWrapper');
       expect(_(1).constructor.name).toEqual('NumberWrapper');
+    });
+
+    it('should return istance Wrapper based on the result', function() {
+      expect(_([]).join().constructor.name).toEqual('StringWrapper');
+      expect(_({a:1}).toArray().constructor.name).toEqual('ArrayWrapper');
+      expect(_('as').indexOf('a').constructor.name).toEqual('NumberWrapper');
     });
 
     it('should throw an error if it\'s invalid argument', function() {
