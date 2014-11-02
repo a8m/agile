@@ -90,3 +90,11 @@ function isRegExp(value) {
 function isEmpty(value) {
   return (isString(value) || isArray(value)) ? !value.length : false;
 }
+
+/**
+ * @description
+ * Determines if a reference is a `Boolean`.
+ * @param {*} value Reference to check.
+ * @returns {boolean} True if `value` is a `Boolean`.
+ */
+function isBoolean(value){return typeof value === 'boolean';}

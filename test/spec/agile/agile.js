@@ -182,9 +182,17 @@ describe('agile.js', function() {
         .toEqual(_(orders).filter('id > 3').value());
 
       //aliases some
-      expect(_(orders).some('id === 5').value())
-        .toEqual(_(orders).contains('id === 5').value());
+      expect(_(orders).some('id === 5'))
+        .toEqual(_(orders).contains('id === 5'));
     });
 
+    it('should return a value and not wrapper object', function() {
+      expect(_([{ a:1 }])
+        .some('a == 1'))
+        .toEqual(true);
+      expect(_([{ b:2 }, { b:4 }, { b:2 }])
+        .every('b <= 2'))
+        .toEqual(false);
+    });
   });
 });
