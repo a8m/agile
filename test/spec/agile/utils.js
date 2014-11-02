@@ -477,7 +477,27 @@ describe('utils', function() {
 
     it('should throw an error with enumarable params', function() {
       expect(minErr('$parse')('parsing {0}', 'error')).toEqual(Error('[$parse:]parsing error'));
-      expect(minErr('$parse')('{1} {0}', 'error', 'parsing')).toEqual(Error('[$parse:]parsing error'));
+      expect(minErr('$parse')('{1} {0} {2}', 'error', 'parsing')).toEqual(Error('[$parse:]parsing error {2}'));
+    });
+  });
+
+  describe('private things', function() {
+    it('should return if it\'s Array-Like', function() {
+      expect(isArrayLike(arguments)).toEqual(true);
+      //fake jQuery
+      var nodeElm = [document.createTextNode("CLICK ME")];
+      nodeElm.nodeType = 1;
+      expect(isArrayLike(nodeElm)).toEqual(true);
+      //should return false
+      expect(isArrayLike(null)).toEqual(false);
+      expect(isArrayLike(window)).toEqual(false);
+    });
+  });
+
+  describe('valueFn', function() {
+    it('should get a value and return a function that return it on invocation', function() {
+      expect(typeof valueFn(1)).toEqual('function');
+      expect(valueFn(1)()).toEqual(1);
     });
   });
 });
