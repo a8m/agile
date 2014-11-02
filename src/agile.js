@@ -17,7 +17,7 @@ var PROTO_METHODS = {
 };
 
 var AGILE_METHODS = {
-  BASE  : [value],
+  BASE  : [value, add],
   OBJECT: [{ name: 'keys', action: objKeys }, toArray],
   STRING: [startsWith, endsWith, trim, ltrim, rtrim, repeat, slugify, stringular, stripTags, truncate, ucfirst, wrap],
   ARRAY : [after, afterWhere, before, beforeWhere, contains, countBy, defaults, map, contains, first,last, flatten,
@@ -153,7 +153,7 @@ function agile(value) {
   }
 }
 //@static methods as wrappers
-var agileStaticMethods = flatten([AGILE_METHODS.ARRAY, AGILE_METHODS.STRING, AGILE_METHODS.OBJECT]);
+var agileStaticMethods = flatten([AGILE_METHODS.BASE, AGILE_METHODS.ARRAY, AGILE_METHODS.STRING, AGILE_METHODS.OBJECT]);
 defineStaticMethods(agile, agileStaticMethods);
 
 // @static boolean methods
