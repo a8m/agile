@@ -20,8 +20,9 @@ var AGILE_METHODS = {
   BASE  : [value],
   OBJECT: [{ name: 'keys', action: objKeys }, toArray],
   STRING: [startsWith, endsWith, trim, ltrim, rtrim, repeat, slugify, stringular, stripTags, truncate, ucfirst, wrap],
-  ARRAY : [after, afterWhere, before, beforeWhere, contains, countBy, defaults, map, contains, first,
-          filter, last, flatten, groupBy, omit, filter, remove, reverse, unique, xor, max, min, sum]
+  ARRAY : [after, afterWhere, before, beforeWhere, contains, countBy, defaults, map, contains, first,last, flatten,
+          groupBy, omit, filter, remove, reverse, unique, xor, max, min, sum,
+          { name: 'pluck', action: map }, { name: 'pick', action: filter }, { name:'some', action: contains }]
 };
 
 /**
@@ -119,6 +120,18 @@ var numberWrapperMethods = flatten([PROTO_METHODS.NUMBER, AGILE_METHODS.BASE]);
 defineWrapperPrototype(NumberWrapper, numberWrapperMethods, Math);
 
 /**
+ * @constructor BooleanWrapper
+ * @description
+ * wraps an boolean and implements the agile boolean methods
+ * @param value {Boolean}
+ */
+function BooleanWrapper(value) {
+  this.__value__ = value;
+}
+//bind the boolean methods to BooleanWrapper.prototype
+defineWrapperPrototype(BooleanWrapper, AGILE_METHODS.BASE, {});
+
+/**
  * @private
  * @description
  * return Wrapper::constructor based on given value
@@ -133,6 +146,8 @@ function getWrapperCtor(val) {
       return NumberWrapper;
     case 'object':
       return isArray(val) ? ArrayWrapper : ObjectWrapper;
+    case 'boolean':
+      return BooleanWrapper;
     default :
       throw Error('Agile value can\'t be ['+ typeof val + '] as an argument');
   }

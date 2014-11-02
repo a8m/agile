@@ -11,7 +11,7 @@ describe('agile.js', function() {
     });
 
     it('should throw an error if it\'s invalid argument', function() {
-      expect(function () {_(true)}).toThrow(Error("Agile value can't be [boolean] as an argument"));
+      expect(function () {_(function(){})}).toThrow(Error("Agile value can't be [function] as an argument"));
     });
 
     it('should return an object', function() {
@@ -172,6 +172,18 @@ describe('agile.js', function() {
         .map('id')
         .min()
         .value()).toEqual(4);
+
+      //aliases pluck
+      expect(_(orders).pluck('id').value())
+        .toEqual(_(orders).map('id').value());
+
+      //aliases pick
+      expect(_(orders).pick('id > 3').value())
+        .toEqual(_(orders).filter('id > 3').value());
+
+      //aliases some
+      expect(_(orders).some('id === 5').value())
+        .toEqual(_(orders).contains('id === 5').value());
     });
 
   });
