@@ -55,4 +55,18 @@ describe('last', function() {
     expect(last(!0)).toBeTruthy();
   });
 
+  it('should run the test from the readme file', function() {
+    var users = [
+      { id: 1, user: { name: 'foo', isAdmin: true  } },
+      { id: 2, user: { name: 'bar', isAdmin: false } },
+      { id: 3, user: { name: 'baz', isAdmin: false } },
+      { id: 4, user: { name: 'zak', isAdmin: true  } }
+    ];
+
+    expect(last(users)).toEqual(users[3]);
+    expect(last(users, '!user.isAdmin')).toEqual([users[2]]);
+    expect(last(users, 2)).toEqual([users[2], users[3]]);
+    expect(last(users, 2, 'user.isAdmin')).toEqual([users[0], users[3]]);
+  });
+
 });
