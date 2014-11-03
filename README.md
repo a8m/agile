@@ -11,6 +11,7 @@
   - [every](#every)
   - [filter](#filter)
   - [first](#first)
+  - [flatten](#flatten)
   - [some](#contains)
   - [pick](#filter)
 
@@ -201,3 +202,15 @@ _.first(users, 2);
 _.first(users, 2, 'user.isAdmin');
 // → [users[0], users[2]]
 ```
+###flatten
+Flattens a nested array (the nesting can be to any depth).  
+if `shallow` set to true, the array will only be flattened a one level.
+**Usage:** `_.flatten(array, shallow[optional])`
+```js
+_.flatten(['out', ['out', ['in']], ['out', 'out', ['in', 'in']], ['out', 'out']], true);
+// → ['out', 'out', ['in'], 'out', 'out', ['in', 'in'], 'out', 'out']
+
+_.flatten([[], 1, 2, 3, [4, 5, 6, [7, 8, 9, [10, 11, [12, [[[[[13], [[[[14, 15]]]]]]]]]]]]]));
+// → [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+```
+
