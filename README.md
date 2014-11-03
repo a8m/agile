@@ -134,7 +134,7 @@ var fallback = {
       destination: { zip: 'Pickup' }
   };
 _.defaults(orders, fallback);
-/* Results:
+/** Results:
 [{ id: 1, destination: { zip: 21908 }, name: 'Ariel M' },
  { id: 2, destination: { zip: 'Pickup' }, name: 'John F'  },
  { id: 3, destination: { zip: 45841 }, name: 'Customer name not available' },
