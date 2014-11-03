@@ -12,6 +12,8 @@
   - [filter](#filter)
   - [first](#first)
   - [flatten](#flatten)
+  - [groupBy](#groupby)
+  - [last](#last)
   - [some](#contains)
   - [pick](#filter)
 
@@ -231,5 +233,32 @@ _.groupBy(players, 'team.name');
 //  betta: [{name: 'George',  team: { name: 'beta'  } }, {name: 'Paula',   team: { name: 'beta'  } }],
 //  gamma: [{name: 'Steve',   team: { name: 'gamma' } }, {name: 'Scruath', team: { name: 'gamma' } }]
 // }
+```
+###last
+Gets the last element **or** last `n` elements of an array.  
+if expression is provided, is returns as long the expression return truthy.  
+**Usage:** See below 
+```js
+var users = [
+  { id: 1, user: { name: 'foo', isAdmin: true  } },
+  { id: 2, user: { name: 'bar', isAdmin: false } },
+  { id: 3, user: { name: 'baz', isAdmin: false } },
+  { id: 4, user: { name: 'zak', isAdmin: true  } }
+];
+// Returns the last user
+_.last(users);
+// → { id: 4, user: { name: 'zak', isAdmin: true  } }
+
+// Return the last user whose not `admin`
+_.last(users, '!user.isAdmin');
+// → [{ id: 3, user: { name: 'baz', isAdmin: false } }]
+
+// Returns the last 2 users
+_.last(users, 2);
+// → [users[2], users[3]]
+
+// Returns the last 2 `admin` users 
+_.last(users, 2, 'user.isAdmin');
+// → [users[0], users[3]]
 ```
 
