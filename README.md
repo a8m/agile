@@ -25,6 +25,7 @@
   - [pick](#filter)
   - [pluck](#map)
   - [unique](#unique)
+  - [xor](#xor)
 - [String](#string)
   - [reverse](#reverse)
 
@@ -399,5 +400,25 @@ _(orders)
   .unique('customer.id')
   .map('customer.name')
   .join(', ')
-  .value() // → John, William, Clive
+  .value(); // → John, William, Clive
+```
+###xor
+Exclusive or filter by expression.  
+**Usage:** _.xor(arr1, arr2, expression[optional]);
+```js
+_.xor([2,3,4], [3,4,5]);
+// → [2, 5]
+
+//Example with expression:
+var users1 = [
+  { id: 0, details: { first_name: 'foo', last_name: 'bar' } }, 
+  { id: 1, details: { first_name: 'foo', last_name: 'baz' } },
+  { id: 2, details: { first_name: 'foo', last_name: 'bag' } }
+];
+var users2 = [
+  { id: 3, details: { first_name: 'foo', last_name: 'bar' } },
+  { id: 4, details: { first_name: 'foo', last_name: 'baz' } }
+];
+_.xor(users1, users2, 'details.last_name');
+// → [{ id: 2, details: { first_name: 'foo', last_name: 'bag' } }]
 ```
