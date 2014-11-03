@@ -9,7 +9,9 @@
   - [countBy](#countby)
   - [defaults](#defaults)
   - [every](#every)
+  - [filter](#filter)
   - [some](#contains)
+  - [pick](#filter)
 
 
 #Collection
@@ -158,4 +160,17 @@ _.every(users, '!(id % 2)');
 // → true
 _.every(users, 'name.indexOf("ba") != -1');
 // → false
+```
+###filter
+filter by `expression/callback` return all elements that return true, avoid the rest.  
+**Usage:** _.filter(array, expression/callback)  
+**Aliases:** `_.pick`
+```js
+var users = [
+  { id: 1, user: { name: 'foo', isAdmin: true  } },
+  { id: 2, user: { name: 'bar', isAdmin: false } },
+  { id: 3, user: { name: 'baz', isAdmin: true  } }
+];
+_.pick(users, 'user.isAdmin');
+// → [ users[0], users[2] ]
 ```
