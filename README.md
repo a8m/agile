@@ -143,7 +143,7 @@ _.defaults(orders, fallback);
 ```
 ###every
 Checks if given expression/callback is present in all members in the array.  
-**Usage:** _.every(array, expression/callback)
+**Usage:** `_.every(array, expression/callback)`
 ```js
 var nums = [1,2,3,4];
 _.every(num, 2); 
