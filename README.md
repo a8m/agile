@@ -8,6 +8,7 @@
   - [contains](#contains)
   - [countBy](#countby)
   - [defaults](#defaults)
+  - [every](#every)
   - [some](#contains)
 
 
@@ -140,4 +141,21 @@ _.defaults(orders, fallback);
 // { id: 3, destination: { zip: 45841 }, name: 'Customer name not available' },
 // { id: 4, destination: { zip: 78612 }, name: 'Danno L' }]
 ```
+###every
+Checks if given expression/callback is present in all members in the array.  
+**Usage:** _.every(array, expression/callback)
+```js
+var nums = [1,2,3,4];
+_.every(num, 2); 
+// → false
 
+var users = [
+  { id: 2, name: 'bob' } },
+  { id: 4, name: 'bar' } },
+  { id: 6, name: 'baz' } }
+];
+_.every(users, '!(id % 2)');
+// → true
+_.every(users, 'name.indexOf("ba") != -1');
+// → false
+```
