@@ -30,6 +30,7 @@ describe('agile.js', function() {
 
     it('should throw an error if it\'s invalid argument', function() {
       expect(function () {_(function(){})}).toThrow(Error("Agile value can't be [function] as an argument"));
+      expect(function () {_()}).toThrow(Error("Agile value can't be [undefined] as an argument"));
     });
 
     it('should return an object', function() {

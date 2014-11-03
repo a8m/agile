@@ -144,7 +144,7 @@ function getWrapperCtor(val) {
  * @param value
  */
 function agile(value) {
-  if(value.__wrapped__) {
+  if(value && value.__wrapped__) {
     return value;
   } else {
     var ctor = getWrapperCtor(value), inst;
