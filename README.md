@@ -185,15 +185,19 @@ var users = [
   { id: 2, user: { name: 'bar', isAdmin: false } },
   { id: 3, user: { name: 'baz', isAdmin: true  } }
 ];
+// Returns the first user
 _.first(users);
 // → { id: 1, user: { name: 'foo', isAdmin: true  } }
 
+// Return the first user whose not `admin`
 _.first(users, '!user.isAdmin');
 // → [{ id: 2, user: { name: 'bar', isAdmin: false } }]
 
+// Returns the first 2 users
 _.first(users, 2);
 // → [users[0], users[1]]
 
+// Returns the first 2 `admin` users 
 _.first(users, 2, 'user.isAdmin');
 // → [users[0], users[2]]
 ```
