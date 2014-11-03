@@ -14,8 +14,10 @@
   - [flatten](#flatten)
   - [groupBy](#groupby)
   - [last](#last)
+  - [map](#map)
   - [some](#contains)
   - [pick](#filter)
+  - [pluck](#map)
 
 
 #Collection
@@ -260,5 +262,21 @@ _.last(users, 2);
 // Returns the last 2 `admin` users 
 _.last(users, 2, 'user.isAdmin');
 // → [users[0], users[3]]
+```
+###map
+Returns a new Array with the results of each expression execution.  
+**Usage:** `_.map(array, expression)`  
+**Aliases:** `_.pluck`
+```js
+var users = [
+  { id:1, user: { name: 'Foo' } },
+  { id:2, user: { name: 'Bar' } },
+  { id:3, user: { name: 'Baz' } }
+];
+_.map(users, 'user.name');
+// → ['Foo', 'Bar', 'Baz']
+
+_.map(users, 'id <= 2 ? id : 0')
+// → [1, 2, 0]
 ```
 
