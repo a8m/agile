@@ -7,6 +7,7 @@
   - [beforeWhere](#beforeWhere)
   - [contains](#contains)
   - [countBy](#countby)
+  - [defaults](#defaults)
   - [some](#contains)
 
 
@@ -118,5 +119,25 @@ var players = [
 _.countBy(players, 'team.name');
 // → { alpha: 1, beta:  2, gamma:2 }
 ```
-
+###defaults
+defaults allows to specify a default fallback value for properties that resolve to undefined.  
+**Usage:** `_.defaults(array, object)`
+```js
+var orders = [
+      { id:1, destination: { zip: 21908 }, name: 'Ariel M' },
+      { id:2, name: 'John F' },
+      { id:3, destination: { zip: 45841 } },
+      { id:4, destination: { zip: 78612 }, name: 'Danno L' }
+  ];
+var fallback = {
+      name: 'Customer name not available',
+      destination: { zip: 'Pickup' }
+  };
+_.defaults(orders, fallback);
+/* Results:
+[{ id: 1, destination: { zip: 21908 }, name: 'Ariel M' },
+ { id: 2, destination: { zip: 'Pickup' }, name: 'John F'  },
+ { id: 3, destination: { zip: 45841 }, name: 'Customer name not available' },
+ { id: 4, destination: { zip: 78612 }, name: 'Danno L' }]
+```
 
