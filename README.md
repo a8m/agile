@@ -10,6 +10,7 @@
   - [defaults](#defaults)
   - [every](#every)
   - [filter](#filter)
+  - [first](#first)
   - [some](#contains)
   - [pick](#filter)
 
@@ -173,4 +174,26 @@ var users = [
 ];
 _.pick(users, 'user.isAdmin');
 // → [ users[0], users[2] ]
+```
+###first
+Gets the first element **or** first `n` elements of an array.  
+if expression is provided, is returns as long the expression return truthy.  
+**Usage:** See below 
+```js
+var users = [
+  { id: 1, user: { name: 'foo', isAdmin: true  } },
+  { id: 2, user: { name: 'bar', isAdmin: false } },
+  { id: 3, user: { name: 'baz', isAdmin: true  } }
+];
+_.first(users);
+// → { id: 1, user: { name: 'foo', isAdmin: true  } }
+
+_.first(users, '!user.isAdmin');
+// → [{ id: 2, user: { name: 'bar', isAdmin: false } }]
+
+_.first(users, 2);
+// → [users[0], users[1]]
+
+_.first(users, 2, 'user.isAdmin');
+// → [users[0], users[2]]
 ```
