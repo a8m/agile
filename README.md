@@ -6,6 +6,7 @@
   - [before](#before)
   - [beforeWhere](#beforeWhere)
   - [contains](#contains)
+  - [countBy](#countby)
   - [some](#contains)
 
 
@@ -86,7 +87,7 @@ _.beforeWhere(orders, function(e) {
 ```
 ###contains
 Checks if given expression(or value) is present in one or more object in the array.  
-**Usage:** `_.contains(array, expression/value)`  
+**Usage:** `_.contains(array, expression/callback/value)`  
 **Aliases:** `_.some`
 ```js
 var nums = [1,2,3,4];
@@ -103,6 +104,19 @@ _.some(users, '!(user.id % 2)');
 _.some(users, '(user.id > 5)');
 // → false
 ```
-
+###countBy
+Create an object composed of keys generated from the result of the running expression, each key is the count of objects in each group.  
+**Usage:** `_.countBy(array, expression/callback)`
+```js
+var players = [
+  {name: 'Gene',    team: { name: 'alpha' } },
+  {name: 'George',  team: { name: 'beta'  } },
+  {name: 'Steve',   team: { name: 'gamma' } },
+  {name: 'Paula',   team: { name: 'beta'  } },
+  {name: 'Scruath', team: { name: 'gamma' } }
+];
+_.countBy(players, 'team.name');
+// → { alpha: 1, beta:  2, gamma:2 }
+```
 
 
