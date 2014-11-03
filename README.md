@@ -404,7 +404,7 @@ _(orders)
 ```
 ###xor
 Exclusive or filter by expression.  
-**Usage:** _.xor(arr1, arr2, expression[optional]);
+**Usage:** `_.xor(arr1, arr2, expression[optional])`
 ```js
 _.xor([2,3,4], [3,4,5]);
 // → [2, 5]
