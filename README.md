@@ -15,6 +15,8 @@
   - [groupBy](#groupby)
   - [last](#last)
   - [map](#map)
+  - [max](#max)
+  - [min](#min)
   - [some](#contains)
   - [pick](#filter)
   - [pluck](#map)
@@ -278,5 +280,41 @@ _.map(users, 'user.name');
 
 _.map(users, 'id <= 2 ? id : 0')
 // → [1, 2, 0]
+```
+###max
+Find and return the largest number in a given array.  
+**Usage:** _.max(array)
+```js
+_.max([1,2,3,4,7,8,9]) // → 9
+
+//Chaining example
+var users = [
+  { player: { ... }, score: 891 },
+  { player: { ... }, score: 121 },
+  { player: { ... }, score: 641 },
+  { player: { ... }, score: 491 }
+]
+_(users)
+  .map('score')
+  .max()
+  .value() // → 891
+```
+###min
+Find and return the lowest number in a given array.  
+**Usage:** _.min(array)
+```js
+_.min([1,2,3,4,7,8,9]) // → 1
+
+//Chaining example
+var users = [
+  { player: { ... }, score: 891 },
+  { player: { ... }, score: 121 },
+  { player: { ... }, score: 641 },
+  { player: { ... }, score: 491 }
+]
+_(users)
+  .map('score')
+  .min()
+  .value() // → 121
 ```
 
