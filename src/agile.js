@@ -19,7 +19,7 @@ var PROTO_METHODS = {
 var AGILE_METHODS = {
   BASE  : [value, add],
   OBJECT: [{ name: 'keys', action: objKeys }, toArray],
-  STRING: [startsWith, endsWith, trim, ltrim, rtrim, repeat, slugify, stringular, stripTags, truncate, ucfirst, wrap],
+  STRING: [startsWith, endsWith, trim, ltrim, rtrim, repeat, slugify, stringular, stripTags, truncate, ucfirst, wrap, reverse],
   ARRAY : [after, afterWhere, before, beforeWhere, contains, countBy, defaults, map, contains, first,last, flatten,
           every, groupBy, omit, filter, remove, reverse, unique, xor, max, min, sum,
           { name: 'pluck', action: map }, { name: 'pick', action: filter }, { name:'some', action: contains }]
