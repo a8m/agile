@@ -17,9 +17,16 @@
   - [map](#map)
   - [max](#max)
   - [min](#min)
+  - [omit](#omit)
+  - [remove](#remove)
+  - [reverse](#reverse)
   - [some](#contains)
+  - [sum](#sum)
   - [pick](#filter)
   - [pluck](#map)
+  - [unique](#unique)
+- [String](#string)
+  - [reverse](#reverse)
 
 
 #Collection
@@ -283,7 +290,7 @@ _.map(users, 'id <= 2 ? id : 0')
 ```
 ###max
 Find and return the largest number in a given array.  
-**Usage:** _.max(array)
+**Usage:** `_.max(array)`
 ```js
 _.max([1,2,3,4,7,8,9]) // → 9
 
@@ -301,7 +308,7 @@ _(users)
 ```
 ###min
 Find and return the lowest number in a given array.  
-**Usage:** _.min(array)
+**Usage:** `_.min(array)`
 ```js
 _.min([1,2,3,4,7,8,9]) // → 1
 
@@ -317,4 +324,80 @@ _(users)
   .min()
   .value() // → 121
 ```
+###omit
+Get an array, and return a new array without the omitted members(by `expression`).  
+**Usage:** `_.omit(array, expression)`
+```js
+var users = [
+  { id: 1, name: 'foo' },
+  { id: 2, name: 'bar' },
+  { id: 3, name: 'baz' }
+];
+_.omit(users, 'id > 2 && !name.indexOf("ba")');
+// → [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]
+```
+###remove
+remove specific members from array by equality.  
+**Usage:** `_.remove(array, args)`
+```js
+var collection = [
+  { name: 'bar' },
+  { name: 'foo' },
+  null, 1
+];
+_.remove(collection, { name: 'foo' }, null, 1);
+// → [{ name: 'bar' }]
+```
+###reverse
+Reverses a string or array(doesn't change the source array).  
+**Usage:** `_.reverse(array/string)`
+```js
+_.reverse([1,2,3]) // → [3, 2, 1]
+_.reverse('agile') // → eliga
+```
+###sum
+Sum up all values within an array.  
+**Usage:** `_.sum(array)`
+```js
+_.sum([1,2,3,4,5]) // → 15
 
+//Chainig example
+var scores = [
+  { player: { ... }, score: 891 },
+  { player: { ... }, score: 121 },
+  { player: { ... }, score: 641 },
+  { player: { ... }, score: 491 }
+];
+_(scores)
+  .map('score')
+  .sum()
+  .value(); // → 2144
+```
+###unique
+Get an array and filter duplicate members.  
+if `expression` is provided it's filters by this `expression` as unique identifier.  
+**Usage:** `_.unique(array, expression[optional])`
+```js
+_.unique([12,3,4,12,4,5,6]) 
+// → [12, 3, 4, 5, 6]
+
+var orders = [
+  { id:1, customer: { name: 'John',    id: 10 } },
+  { id:2, customer: { name: 'William', id: 20 } },
+  { id:3, customer: { name: 'John',    id: 10 } },
+  { id:4, customer: { name: 'William', id: 20 } },
+  { id:5, customer: { name: 'Clive',   id: 30 } }
+];
+_.unique(orders, 'customer.id');
+// Results:
+// [{ id:1, customer: { name: 'John',    id: 10 } },
+//  { id:2, customer: { name: 'William', id: 20 } },
+//  { id:5, customer: { name: 'Clive',   id: 30 } }]
+
+//Chaining Example:
+_(orders)
+  .unique('customer.id')
+  .map('customer.name')
+  .join(', ')
+  .value() // → John, William, Clive
+```
