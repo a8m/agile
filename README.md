@@ -213,4 +213,23 @@ _.flatten(['out', ['out', ['in']], ['out', 'out', ['in', 'in']], ['out', 'out']]
 _.flatten([[], 1, 2, 3, [4, 5, 6, [7, 8, 9, [10, 11, [12, [[[[[13], [[[[14, 15]]]]]]]]]]]]]));
 // → [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 ```
+###groupBy
+Get a collection, `expression/callback` and return an object composed of keys generated from the result of running each members in the collection on the `expression`.  
+each key is an array contains the results members.  
+**Usage:** `_.groupBy(array, expression)`
+```js
+var players = [
+  {name: 'Gene',    team: { name: 'alpha' } },
+  {name: 'George',  team: { name: 'beta'  } },
+  {name: 'Steve',   team: { name: 'gamma' } },
+  {name: 'Paula',   team: { name: 'beta'  } },
+  {name: 'Scruath', team: { name: 'gamma' } }
+];
+_.groupBy(players, 'team.name');
+// { 
+//  alpha: [{name: 'Gene',    team: { name: 'alpha' } }],
+//  betta: [{name: 'George',  team: { name: 'beta'  } }, {name: 'Paula',   team: { name: 'beta'  } }],
+//  gamma: [{name: 'Steve',   team: { name: 'gamma' } }, {name: 'Scruath', team: { name: 'gamma' } }]
+// }
+```
 
