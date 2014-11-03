@@ -5,6 +5,8 @@
   - [afterWhere](#afterwhere)
   - [before](#before)
   - [beforeWhere](#beforeWhere)
+  - [contains](#contains)
+  - [some](#contains)
 
 
 #Collection
@@ -82,3 +84,25 @@ _.beforeWhere(orders, function(e) {
 });
 // → [ orders[0], orders[1] ]
 ```
+###contains
+Checks if given expression(or value) is present in one or more object in the array.  
+**Usage:** `_.contains(array, expression/value)`  
+**Aliases:** `_.some`
+```js
+var nums = [1,2,3,4];
+_.contains(num, 2); 
+// → true
+
+var users = [
+  { user: { id: 2, name: 'foo' } },
+  { user: { id: 4, name: 'bar' } },
+  { user: { id: 6, name: 'baz' } }
+];
+_.some(users, '!(user.id % 2)');
+// → true
+_.some(users, '(user.id > 5)');
+// → false
+```
+
+
+
