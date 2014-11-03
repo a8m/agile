@@ -162,9 +162,9 @@ _.every(users, 'name.indexOf("ba") != -1');
 // → false
 ```
 ###filter
-filter by `expression/callback` return all elements that return true, avoid the rest.  
+filter by `expression/callback` return all elements that return `true`, avoid the rest.  
 **Usage:** _.filter(array, expression/callback)  
-**Aliases:** `_.pick`
+**Aliases:** ` _.pick`
 ```js
 var users = [
   { id: 1, user: { name: 'foo', isAdmin: true  } },
