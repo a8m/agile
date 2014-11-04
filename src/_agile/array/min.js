@@ -4,11 +4,14 @@
  * @kind function
  *
  * @description
- * Math.min
+ * Math.min will get an array return the min value. if an expression
+ * is provided, will return min value by expression.
  */
-
-function min(input) {
-    return (isArray(input)) ?
-        Math.min.apply(Math, input) :
-        input;
+function min(input, expression) {
+  if(!isArray(input)) {
+    return input;
+  }
+  return isUndefined(expression)
+    ? Math.min.apply(Math, input)
+    : input[indexByMath('min', input, expression)]
 }

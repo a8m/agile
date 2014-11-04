@@ -127,11 +127,10 @@ function getFirstMatches(array, n, expression) {
 /**
  * @description
  * gets method name, array and expression
- * @private
- * @param method
- * @param array
- * @param exp
- * @returns {*}
+ * @param method {String}
+ * @param array {Array}
+ * @param exp {String} expression to parse
+ * @returns {Number}
  */
 function indexByMath(method, array, exp) {
     var mappedArray = array.map(function(elm){
