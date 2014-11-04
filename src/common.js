@@ -123,3 +123,19 @@ function getFirstMatches(array, n, expression) {
     return rest;
   });
 }
+
+/**
+ * @description
+ * gets method name, array and expression
+ * @private
+ * @param method
+ * @param array
+ * @param exp
+ * @returns {*}
+ */
+function indexByMath(method, array, exp) {
+    var mappedArray = array.map(function(elm){
+        return $parse(exp)(elm);
+    });
+    return mappedArray.indexOf(Math[method].apply(Math, mappedArray));
+}

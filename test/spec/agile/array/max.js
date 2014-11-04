@@ -14,6 +14,15 @@ describe('max', function () {
         expect(max([1])).toEqual(1);
     });
 
+    it('should get array with expression and return object', function() {
+        var users = [
+            { name: 'foo', score: 89 },
+            { name: 'bar', score: 32 },
+            { name: 'baz', score: 49 }
+        ];
+        expect(max(users, 'score')).toEqual(users[0]);
+    });
+
     it('should get an !array and return it as-is', function() {
         expect(max('string')).toEqual('string');
         expect(max({})).toEqual({});
