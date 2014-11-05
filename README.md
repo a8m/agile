@@ -29,6 +29,7 @@
   - [xor](#xor)
 - [String](#string)
   - [endsWith](#endswith)
+  - [ltrim](#ltrim)
   - [reverse](#reverse)
 
 
@@ -458,4 +459,11 @@ return whether string ends with the ends parameter.
 _.endsWith('image.JPG', '.jpg'); // → true
 
 _.endsWith('image.JPG', '.jpg', true); // → false
+```
+###ltrim
+Left trim. Similar to `trim`, but only for left side.  
+**Usage:** `_.ltrim(string, chars[optional])`
+```js
+_.ltrim('   foo   ') // → 'foo   '
+_.ltrim('barfoobar', 'bar') // → 'foobar'
 ```
