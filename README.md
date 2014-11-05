@@ -36,6 +36,7 @@
   - [slugify](#slugify)
   - [startsWith](#startswith)
   - [stringular](#stringular)
+  - [stripTags](#striptags)
 
 
 #Collection
@@ -505,6 +506,7 @@ _('Lorem ipsum')
 ```
 ###stringular
 get string with `{n}` and replace matches with enumeration values.  
+**Usage:** `_.stringular(str, args...)`
 ```js
 _.stringular('lorem {0} dolor {1} amet', 'ipsum', 'sit'); 
 // → 'lorem ipsum dolor sit amet'
@@ -512,4 +514,17 @@ _.stringular('lorem {0} dolor {1} amet', 'ipsum', 'sit');
 _.stringular('{3} {0} dolor {1} amet', 'ipsum', 'sit', null, 'lorem');
 // → 'lorem ipsum dolor sit amet'
 ```
+###stripTags
+strip out `html` tags from string.  
+**Usage:** `_.stripTags(string)`
+```js
+_.stripTags('<div id="fr" class="paragraph">foo<br/></div>');
+// → 'foo'
+
+//Chaining example
+_('<p class="paragraph">Lorem Ipsum...</p>')
+  .stripTags()
+  .value(); // → 'Lorem Ipsum...'
+```
+
 
