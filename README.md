@@ -35,6 +35,7 @@
   - [reverse](#reverse)
   - [slugify](#slugify)
   - [startsWith](#startswith)
+  - [stringular](#stringular)
 
 
 #Collection
@@ -502,3 +503,13 @@ _.startsWith('Lorem ipsum', 'Lor'); // → true
 _('Lorem ipsum')
   .startsWith('lor', true); // → false
 ```
+###stringular
+get string with `{n}` and replace matches with enumeration values.  
+```js
+_.stringular('lorem {0} dolor {1} amet', 'ipsum', 'sit'); 
+// → 'lorem ipsum dolor sit amet'
+
+_.stringular('{3} {0} dolor {1} amet', 'ipsum', 'sit', null, 'lorem');
+// → 'lorem ipsum dolor sit amet'
+```
+
