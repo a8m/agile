@@ -40,6 +40,7 @@
   - [trim](#trim)
   - [truncate](#truncate)
   - [ucfirst](#ucfirst)
+  - [wrap](#wrap)
 
 
 #Collection
@@ -557,4 +558,18 @@ _(['ariel', 'dan', 'john'])
   .join(', ')
   .ucfirst()
   .value(); // → 'Ariel, Dan, John'
+```
+###wrap
+Wrap a string with another string.  
+**Usage:** `_.wrap(string, start, end[optional])`
+```js
+_.wrap('foo', 'bar');          // → 'barfoobar'
+_.wrap('text', '<p>', '</p>'); // → '<p>text</p>'
+
+//Chaining example:
+_(['ariel', 'dan', 'john'])
+  .join(', ')
+  .ucfirst()
+  .wrap('Team members: ', ' ')
+  .value(); // → 'Team members: Ariel, Dan, John'
 ```
