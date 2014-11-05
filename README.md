@@ -39,6 +39,7 @@
   - [stripTags](#striptags)
   - [trim](#trim)
   - [truncate](#truncate)
+  - [ucfirst](#ucfirst)
 
 
 #Collection
@@ -544,4 +545,16 @@ var text = 'lorem ipsum dolor sit amet';
 _.truncate(text, 13, '...', true); // → 'lorem ipsum dolor...'
 _.truncate(text, 13, '...');       // → 'lorem ipsum d...'
 _.truncate(text, 50, '...');       // → 'lorem ipsum dolor sit amet'
+```
+###ucfirst
+upper case first char.  
+**Usage:** `_.ucfirst(string)`
+```js
+_.ucfirst('ariel mashraki'); // → 'Ariel Mashraki'
+
+//Chaining example
+_(['ariel', 'dan', 'john'])
+  .join(', ')
+  .ucfirst()
+  .value(); // → 'Ariel, Dan, John'
 ```
