@@ -33,6 +33,7 @@
   - [repeat](#repeat)
   - [rtrim](#rtrim)
   - [reverse](#reverse)
+  - [slugify](#slugify)
 
 
 #Collection
@@ -483,4 +484,10 @@ Repeats a string n times(**fast**).
 _.repeat('*',10); // → '**********'
 _.repeat('foo');  // → 'foo'
 ```
-
+###slugify
+Transform text into a URL slug. Replaces whitespaces, with dash("-") or given argument.  
+**Usage:** `_.slugify(input, sub[optional])`
+```js
+_.slugify('Some string with spaces'); // → 'some-string-with-spaces'
+_.slugify('Some string with hashtags', '#'); // → 'some#string#with#hashtags'
+```
