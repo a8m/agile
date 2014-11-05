@@ -34,6 +34,7 @@
   - [rtrim](#rtrim)
   - [reverse](#reverse)
   - [slugify](#slugify)
+  - [startsWith](#startswith)
 
 
 #Collection
@@ -490,4 +491,14 @@ Transform text into a URL slug. Replaces whitespaces, with dash("-") or given ar
 ```js
 _.slugify('Some string with spaces'); // → 'some-string-with-spaces'
 _.slugify('Some string with hashtags', '#'); // → 'some#string#with#hashtags'
+```
+###startsWith
+return whether `string` starts with the starts parameter.  
+**Usage:** `_.startsWith(str, case-sensitive[optional])`
+```js
+_.startsWith('Lorem ipsum', 'Lor'); // → true
+
+//Chaining example:
+_('Lorem ipsum')
+  .startsWith('lor', true); // → false
 ```
