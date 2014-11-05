@@ -28,6 +28,7 @@
   - [unique](#unique)
   - [xor](#xor)
 - [String](#string)
+  - [endsWith](#endswith)
   - [reverse](#reverse)
 
 
@@ -448,4 +449,13 @@ var users2 = [
 ];
 _.xor(users1, users2, 'details.last_name');
 // → [{ id: 2, details: { first_name: 'foo', last_name: 'bag' } }]
+```
+#String
+###endsWith
+return whether string ends with the ends parameter.  
+**Usage:** `_.endsWith(string, end, case-sensitive[optional])`
+```js
+_.endsWith('image.JPG', '.jpg'); // → true
+
+_.endsWith('image.JPG', '.jpg', true); // → false
 ```
