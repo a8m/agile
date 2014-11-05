@@ -1,6 +1,7 @@
 #agile.js - WIP [![Build Status](https://travis-ci.org/a8m/agile.svg?branch=master)](https://travis-ci.org/a8m/agile) [![Coverage Status](https://img.shields.io/coveralls/a8m/agile.svg)](https://coveralls.io/r/a8m/agile?branch=master)
 
 - [Collection](#collection)
+  - [add](#add)
   - [after](#after)
   - [afterWhere](#afterwhere)
   - [before](#before)
@@ -68,6 +69,13 @@ _.afterWhere(orders, function(e) {
 });
 // → [ orders[3], orders[4] ]
 ```
+###add
+`add` is similar to `Array.push`, but can get a multiple arguments, and return the array instead of the value.  
+**Usage:** `_.add(array, args)`
+```js
+_.add([1,2,3], 4,5,6); // → [1, 2, 3, 4, 5, 6]
+```
+
 ###before
 get a collection and specified count, and returns all of the items in the collection before the specified count.  
 **Usage:** `_.before(array, count)`
