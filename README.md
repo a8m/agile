@@ -31,6 +31,7 @@
   - [endsWith](#endswith)
   - [ltrim](#ltrim)
   - [repeat](#repeat)
+  - [rtrim](#rtrim)
   - [reverse](#reverse)
 
 
@@ -465,8 +466,15 @@ _.endsWith('image.JPG', '.jpg', true); // → false
 Left trim. Similar to `trim`, but only for left side.  
 **Usage:** `_.ltrim(string, chars[optional])`
 ```js
-_.ltrim('   foo   ') // → 'foo   '
-_.ltrim('barfoobar', 'bar') // → 'foobar'
+_.ltrim('   foo   ') // → '   foo'
+_.ltrim('barfoobar', 'bar') // → 'barfoo'
+```
+###rtrim
+Reft trim. Similar to `trim`, but only for right side.  
+**Usage:** `_.rtrim(string, chars[optional])`
+```js
+_.rtrim('   foo   ') // → 'foo   '
+_.rtrim('barfoobar', 'bar') // → 'foobar'
 ```
 ###repeat
 Repeats a string n times(**fast**).  
@@ -475,3 +483,4 @@ Repeats a string n times(**fast**).
 _.repeat('*',10); // → '**********'
 _.repeat('foo');  // → 'foo'
 ```
+
