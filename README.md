@@ -38,6 +38,7 @@
   - [stringular](#stringular)
   - [stripTags](#striptags)
   - [trim](#trim)
+  - [truncate](#truncate)
 
 
 #Collection
@@ -534,4 +535,13 @@ Strip whitespace (or other characters) from the beginning and end of a string.
 _.trim('foobarfoo', 'foo'); // → 'bar'
 _.trim('   foo   '); // → 'foo'
 ```
+###truncate
+truncates a string given a specified length, providing a custom string to denote an omission.  
+**Usage:** `_.truncate(str, length, suffix[optional], preserve[optinal])`
+```js
+var text = 'lorem ipsum dolor sit amet';
 
+_.truncate(text, 13, '...', true); // → 'lorem ipsum dolor...'
+_.truncate(text, 13, '...');       // → 'lorem ipsum d...'
+_.truncate(text, 50, '...');       // → 'lorem ipsum dolor sit amet'
+```
