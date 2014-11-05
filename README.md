@@ -37,6 +37,7 @@
   - [startsWith](#startswith)
   - [stringular](#stringular)
   - [stripTags](#striptags)
+  - [trim](#trim)
 
 
 #Collection
@@ -526,5 +527,11 @@ _('<p class="paragraph">Lorem Ipsum...</p>')
   .stripTags()
   .value(); // → 'Lorem Ipsum...'
 ```
-
+###trim
+Strip whitespace (or other characters) from the beginning and end of a string.  
+**Usage:** `_.trim(string, chars[optional])`
+```js
+_.trim('foobarfoo', 'foo'); // → 'bar'
+_.trim('   foo   '); // → 'foo'
+```
 
