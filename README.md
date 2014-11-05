@@ -30,6 +30,7 @@
 - [String](#string)
   - [endsWith](#endswith)
   - [ltrim](#ltrim)
+  - [repeat](#repeat)
   - [reverse](#reverse)
 
 
@@ -466,4 +467,11 @@ Left trim. Similar to `trim`, but only for left side.
 ```js
 _.ltrim('   foo   ') // → 'foo   '
 _.ltrim('barfoobar', 'bar') // → 'foobar'
+```
+###repeat
+Repeats a string n times(**fast**).  
+**Usage:** `_.repeat(string, n)`
+```js
+_.repeat('*',10); // → '**********'
+_.repeat('foo');  // → 'foo'
 ```
