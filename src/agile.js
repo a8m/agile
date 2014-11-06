@@ -180,3 +180,12 @@ agile.forEach    = forEach;
 
 //@static parse method
 agile.parse      = $parse;
+
+//Expose agile.js
+function runInContext(context) {
+  // Node.js
+  return (typeof module === "object" && module && module.exports === context)
+    ? module.exports = agile
+    // Browsers
+    : context._ = agile;
+}

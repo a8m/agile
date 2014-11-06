@@ -1,35 +1,4 @@
 'use strict';
-var $parseMinErr = minErr('$parse');
-
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-
-//Parse Dependencies
-var NODE_TYPE_ELEMENT = 1;
-
-/**
- * @private
- * @param {*} obj
- * @return {boolean} Returns true if `obj` is an array or array-like object (NodeList, Arguments, String ...)
- */
-function isArrayLike(obj) {
-  if (obj == null || isWindow(obj)) {
-    return false;
-  }
-
-  var length = obj.length;
-
-  if (obj.nodeType === NODE_TYPE_ELEMENT && length) {
-    return true;
-  }
-
-  return isString(obj) || isArray(obj) || length === 0 ||
-    typeof length === 'number' && length > 0 && (length - 1) in obj;
-}
-
-function isWindow(obj) {
-  return obj && obj.window === obj;
-}
 
 /**
  * @description
@@ -137,4 +106,33 @@ function indexByMath(method, array, exp) {
         return $parse(exp)(elm);
     });
     return mappedArray.indexOf(Math[method].apply(Math, mappedArray));
+}
+
+//Parse Dependencies
+var $parseMinErr = minErr('$parse');
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var NODE_TYPE_ELEMENT = 1;
+
+/**
+ * @private
+ * @param {*} obj
+ * @return {boolean} Returns true if `obj` is an array or array-like object (NodeList, Arguments, String ...)
+ */
+function isArrayLike(obj) {
+    if (obj == null || isWindow(obj)) {
+        return false;
+    }
+
+    var length = obj.length;
+
+    if (obj.nodeType === NODE_TYPE_ELEMENT && length) {
+        return true;
+    }
+
+    return isString(obj) || isArray(obj) || length === 0 ||
+        typeof length === 'number' && length > 0 && (length - 1) in obj;
+}
+
+function isWindow(obj) {
+    return obj && obj.window === obj;
 }

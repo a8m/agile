@@ -22,8 +22,8 @@ module.exports = function(grunt) {
       options: {
         banner: '<%= meta.banner %>' + '\n' +
           '(function ( context, undefined ) {' + '\n',
-        footer: '//@expose' + '\n' +
-          'context.agile = agile;' + '\n\n' +
+        footer: '//@expose agile' + '\n' +
+          'runInContext(context);' + '\n\n' +
           '})( this );'
       },
       dist: {

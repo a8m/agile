@@ -1,42 +1,11 @@
 /**
  * agile repo
- * @version v0.0.0 - 2014-11-01 * @link https://github.com/a8m/agile
+ * @version v0.0.0 - 2014-11-06 * @link https://github.com/a8m/agile
  * @author Ariel Mashraki <ariel@mashraki.co.il>
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
 (function ( context, undefined ) {
 'use strict';
-var $parseMinErr = minErr('$parse');
-
-var hasOwnProperty = Object.prototype.hasOwnProperty;
-
-
-//Parse Dependencies
-var NODE_TYPE_ELEMENT = 1;
-
-/**
- * @private
- * @param {*} obj
- * @return {boolean} Returns true if `obj` is an array or array-like object (NodeList, Arguments, String ...)
- */
-function isArrayLike(obj) {
-  if (obj == null || isWindow(obj)) {
-    return false;
-  }
-
-  var length = obj.length;
-
-  if (obj.nodeType === NODE_TYPE_ELEMENT && length) {
-    return true;
-  }
-
-  return isString(obj) || isArray(obj) || length === 0 ||
-    typeof length === 'number' && length > 0 && (length - 1) in obj;
-}
-
-function isWindow(obj) {
-  return obj && obj.window === obj;
-}
 
 /**
  * @description
@@ -59,9 +28,18 @@ function minErr(module, ErrorConstructor) {
   };
 }
 
-
+/**
+ * @private
+ * @description
+ * function that get a value and return another function
+ * that return this value
+ * @example
+ * 1. valueFn(function (e) { return e; })() ==> function (e) { return e }
+ * 2. valueFn(e)()                          ==> e
+ * @param value
+ * @returns {Function}
+ */
 function valueFn(value) {return function() {return value;};}
-
 
 /**
  *
@@ -120,6 +98,50 @@ function getFirstMatches(array, n, expression) {
 
     return rest;
   });
+}
+
+/**
+ * @description
+ * gets method name, array and expression
+ * @param method {String}
+ * @param array {Array}
+ * @param exp {String} expression to parse
+ * @returns {Number}
+ */
+function indexByMath(method, array, exp) {
+    var mappedArray = array.map(function(elm){
+        return $parse(exp)(elm);
+    });
+    return mappedArray.indexOf(Math[method].apply(Math, mappedArray));
+}
+
+//Parse Dependencies
+var $parseMinErr = minErr('$parse');
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var NODE_TYPE_ELEMENT = 1;
+
+/**
+ * @private
+ * @param {*} obj
+ * @return {boolean} Returns true if `obj` is an array or array-like object (NodeList, Arguments, String ...)
+ */
+function isArrayLike(obj) {
+    if (obj == null || isWindow(obj)) {
+        return false;
+    }
+
+    var length = obj.length;
+
+    if (obj.nodeType === NODE_TYPE_ELEMENT && length) {
+        return true;
+    }
+
+    return isString(obj) || isArray(obj) || length === 0 ||
+        typeof length === 'number' && length > 0 && (length - 1) in obj;
+}
+
+function isWindow(obj) {
+    return obj && obj.window === obj;
 }
 /**
  * @name after-where
@@ -461,27 +483,36 @@ function map(array, expression) {
  * @kind function
  *
  * @description
- * Math.max
+ * Math.max will get an array return the max value. if an expression
+ * is provided, will return max value by expression.
  */
-function max(input) {
-    return (isArray(input)) ?
-        Math.max.apply(Math, input) :
-        input;
+function max(input, expression) {
+    if(!isArray(input)) {
+        return input;
+    }
+    return isUndefined(expression)
+        ? Math.max.apply(Math, input)
+        : input[indexByMath('max', input, expression)]
 }
+
 /**
  * @ngdoc filter
  * @name min
  * @kind function
  *
  * @description
- * Math.min
+ * Math.min will get an array return the min value. if an expression
+ * is provided, will return min value by expression.
  */
-
-function min(input) {
-    return (isArray(input)) ?
-        Math.min.apply(Math, input) :
-        input;
+function min(input, expression) {
+  if(!isArray(input)) {
+    return input;
+  }
+  return isUndefined(expression)
+    ? Math.min.apply(Math, input)
+    : input[indexByMath('min', input, expression)]
 }
+
 /**
  * @name omit
  * @kind function
@@ -717,6 +748,60 @@ function isRegExp(value) {
 function isEmpty(value) {
   return (isString(value) || isArray(value)) ? !value.length : false;
 }
+
+/**
+ * @description
+ * Determines if a reference is a `Boolean`.
+ * @param {*} value Reference to check.
+ * @returns {boolean} True if `value` is a `Boolean`.
+ */
+function isBoolean(value){return typeof value === 'boolean';}
+//these methods is kind of common methods for chaining wrappers
+/**
+ * @description
+ * add methods get an object extend(based on type) and return it.
+ * @param object
+ * @returns {*}
+ * @example
+ * add(1,2) ==> 3
+ * add([],1) ==> [1]  
+ * add('f','g') ==> 'fg'
+ * add({}, {a:1}) ==> {a:1}
+ */
+function add(object) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  //loop through all over the arguments
+  forEach(args, function(value, i) {
+    switch(typeof object) {
+      case 'object':
+        isArray(object)
+          ? object.push(value)
+          : extend(object, isObject(value) ? value : creObject(i, value));
+        break;
+      case 'string':
+        object += isString(value) ? value : '';
+        break;
+      case 'number':
+        object += isNumber(value) ? value : 0;
+    }
+  });
+  return object;
+}
+
+/**
+ * @private
+ * @description
+ * return an object that index is the key
+ * @param i {Index}
+ * @param value
+ * @returns {Object}
+ */
+function creObject(i, value) {
+  var o = {};
+  o[i] = value;
+  return o;
+}
+
 /**
  * @description
  * get object and return it's keys,
@@ -2239,11 +2324,12 @@ var PROTO_METHODS = {
 };
 
 var AGILE_METHODS = {
-  BASE  : [value],
+  BASE  : [value, add],
   OBJECT: [{ name: 'keys', action: objKeys }, toArray],
-  STRING: [startsWith, endsWith, trim, ltrim, rtrim, repeat, slugify, stringular, stripTags, truncate, ucfirst, wrap],
-  ARRAY : [after, afterWhere, before, beforeWhere, contains, countBy, defaults, map, contains, first,
-          filter, last, flatten, groupBy, omit, filter, remove, reverse, unique, xor, max, min, sum]
+  STRING: [startsWith, endsWith, trim, ltrim, rtrim, repeat, slugify, stringular, stripTags, truncate, ucfirst, wrap, reverse],
+  ARRAY : [after, afterWhere, before, beforeWhere, contains, countBy, defaults, map, contains, first,last, flatten,
+          every, groupBy, omit, filter, remove, reverse, unique, xor, max, min, sum,
+          { name: 'pluck', action: map }, { name: 'pick', action: filter }, { name:'some', action: contains }]
 };
 
 /**
@@ -2268,7 +2354,7 @@ function defineWrapperPrototype(ctor, methods, prototype) {
       var res  = isString(method) && !(prototype.E)
         ? func.call(this.__value__, fnArgs)
         : func.apply(this, args);
-      return UNWRAPPED_FUNC.test(methodName)
+      return UNWRAPPED_FUNC.test(methodName) || isBoolean(res)
         ? res
         : agile(res);
     };
@@ -2284,7 +2370,7 @@ function defineWrapperPrototype(ctor, methods, prototype) {
  */
 function defineStaticMethods(ctor, methods) {
   forEach(methods, function(method) {
-    ctor[method.name] = method;
+    ctor[method.name] = isFunction(method) ? method : method.action;
   });
 }
 
@@ -2365,7 +2451,7 @@ function getWrapperCtor(val) {
  * @param value
  */
 function agile(value) {
-  if(value.__wrapped__) {
+  if(value && value.__wrapped__) {
     return value;
   } else {
     var ctor = getWrapperCtor(value), inst;
@@ -2374,7 +2460,7 @@ function agile(value) {
   }
 }
 //@static methods as wrappers
-var agileStaticMethods = flatten([AGILE_METHODS.ARRAY, AGILE_METHODS.STRING]);
+var agileStaticMethods = flatten([AGILE_METHODS.BASE, AGILE_METHODS.ARRAY, AGILE_METHODS.STRING, AGILE_METHODS.OBJECT]);
 defineStaticMethods(agile, agileStaticMethods);
 
 // @static boolean methods
@@ -2389,20 +2475,27 @@ agile.isFunction  = isFunction;
 agile.isEmpty     = isEmpty;
 
 //@static utils methods
-agile.equals    = equals;
-agile.identity  = value;
-agile.extend    = extend;
-agile.Map       = createMap;
-agile.noop      = noop;
-agile.uppercase = uppercase;
-agile.lowercase = lowercase;
-agile.toJson    = toJson;
-agile.forEach   = forEach;
+agile.equals     = equals;
+agile.identity   = value;
+agile.extend     = extend;
+agile.dictionary = createMap;
+agile.noop       = noop;
+agile.uppercase  = uppercase;
+agile.lowercase  = lowercase;
+agile.toJson     = toJson;
+agile.forEach    = forEach;
 
-//@static object methods
-agile.keys    = objKeys;
-agile.toArray = toArray;
-//@expose
-context.agile = agile;
+//@static parse method
+agile.parse      = $parse;
+
+//Expose agile.js
+function runInContext(context) {
+  // Node.js
+  return (typeof module === "object" && module && module.exports === context)
+    ? module.exports = agile
+    // Browsers
+    : context._ = agile;
+}//@expose agile
+runInContext(context);
 
 })( this );
