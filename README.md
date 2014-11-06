@@ -45,7 +45,26 @@
   - [truncate](#truncate)
   - [ucfirst](#ucfirst)
   - [wrap](#wrap)
-
+- [Utils](#utils)
+  - [dictionary](#dictionary)
+  - [equals](#equals)
+  - [extend](#extend)
+  - [identity](#identity)
+  - [forEach](#foreach)
+  - [lowercase](#lowercase)
+  - [uppercase](#uppercase)
+  - [noop](#noop)
+  - [toJson](#tojson)
+- [Boolean](#boolean)
+  - [isArray](#isarray)
+  - [isDate](#isdate)
+  - [isDefined](#isdefined)
+  - [isUndefined](#isundefined)
+  - [isString](#isstring)
+  - [isObject](#isobject)
+  - [isNumber](#isnumber)
+  - [isFunction](#isfunction)
+  - [isEmpty](#isempty)
 
 #Collection
 ###after
