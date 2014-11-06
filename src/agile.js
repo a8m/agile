@@ -40,11 +40,12 @@ function defineWrapperPrototype(ctor, methods, prototype) {
     var func = isString(method) ? prototype[method]
       : isObject(method) ? method.action //if it's method with custom name
       : method;
+    //if it's a prototype function, but not a static function, e.g: Math.pow
+    var isStatic = isString(method) && !(prototype.E);
     ctor.prototype[methodName] = function() {
       var fnArgs = Array.prototype.slice.call(arguments);
       var args   = [this.__value__].concat(fnArgs);
-      //if it's a prototype function, but not a static function, e.g: Math.pow
-      var res  = isString(method) && !(prototype.E)
+      var res  = isStatic
         ? func.call(this.__value__, fnArgs)
         : func.apply(this, args);
       return UNWRAPPED_FUNC.test(methodName) || isBoolean(res)
@@ -185,6 +186,6 @@ function runInContext(context) {
   return (typeof module === "object" && module && module.exports === context)
     ? module.exports = agile
     // Browsers
-    : context[(context._) ? '_' : 'agile'] = agile;
+    : context[(context._) ? 'agile' : '_'] = agile;
 }
 
