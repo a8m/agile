@@ -30,6 +30,7 @@
 - [Object](#object)
   - [keys](#keys)
   - [toArray](#toarray)
+  - [parse](#parse)
 - [String](#string)
   - [endsWith](#endswith)
   - [ltrim](#ltrim)
@@ -503,6 +504,44 @@ _.keys(user);
 
 _.keys(user, true);
 // → ['name', 'age', 'permissions.isAdmin', 'details.address.city', 'details.address.zip']
+```
+###parse
+Convert `expression` into function.  
+**Usage:** `_.parse(expression)`  
+**Returns:** `Function(context, local)`  
+`context`**:** an object against which any expressions embedded in the strings are evaluated against.  
+`local`**:** local variables context object, useful for overriding values in context.  
+**Note:** The returned function also has the following properties:  
+`literal` : whether the expression's top-level node is a JavaScript literal.  
+`constant`: whether the expression is made entirely of JavaScript constant literals.  
+`assign`  : `{?function(context, value)}` – if the expression is assignable, this will be set to a function to change its value on the given context.
+```js
+//Simple getter / setter functions
+var user = { 
+  name: 'Ariel M.', 
+  age : 26, 
+  details: { address: { city: 'Tel Aviv', zip: 61019 } }
+};
+var nameGetter = _.parse('name');
+var nameSetter = nameGetter.assign;
+
+nameGetter(user); // → 'Ariel M.'
+nameSetter(user, 'Dan T.');
+nameGetter(user); // → 'Dan M.'
+
+//Example use local(override) object
+var local = {
+  age: 50,
+  sayHello: function(name, age) { 
+    return 'Hello ' + name + ' I\'m '+ age + ' years old.' 
+    }
+};
+_.parse('sayHello(name, age)')(user, local);
+// → Hello Ariel M. I'm 50 years old.
+
+_.parse('[1,2]').literal    // → true
+_.parse('[1 + 1]').constant // → true
+_.parse('[x + 1]').constant // → false
 ```
 
 #String
