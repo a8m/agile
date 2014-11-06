@@ -27,6 +27,8 @@
   - [pluck](#map)
   - [unique](#unique)
   - [xor](#xor)
+- [Object](#object)
+  - [toArray](#toarray)
 - [String](#string)
   - [endsWith](#endswith)
   - [ltrim](#ltrim)
@@ -461,6 +463,30 @@ var users2 = [
 _.xor(users1, users2, 'details.last_name');
 // → [{ id: 2, details: { first_name: 'foo', last_name: 'bag' } }]
 ```
+
+#Object
+###toArray
+Convert objects into stable arrays.  
+if addKey set to true,the filter also attaches a new property `$key` to the value containing the original key that was used in the object we are iterating over to reference the property.  
+**Usage:** `_.toArray(object, boolean[optional])`
+```js
+var users = {
+  0: { name: 'Ariel', age: 25 },
+  1: { name: 'Dan',   age: 21 },
+  2: { name: 'John',  age: 31 }
+};
+_.toArray(users);
+// → [{name:'Ariel', age:25}, {name:'Dan', age:21}, {name:'John', age:31}]
+
+//Chaining example
+_({
+  Ariel: { age: 25 },
+  Dan  : { age: 21 },
+  John : { age: 31 }
+}).toArray(true)
+  .value(); // → [{$key:'Ariel', age:25}, {$key:'Dan', age:21}, {$key:'John', age:31}]
+```
+
 #String
 ###endsWith
 return whether string ends with the ends parameter.  
