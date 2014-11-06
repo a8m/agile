@@ -12,17 +12,59 @@ var UNWRAPPED_FUNC = /^(?:value|identity)$/;
  */
 var PROTO_METHODS = {
   STRING: ['charAt', 'concat', 'indexOf', 'lastIndexOf', 'match', 'replace','slice', 'substr', 'substring', 'toLowerCase', 'toUpperCase'],
-  ARRAY:  ['concat', 'join', 'pop', 'push', 'shift', 'sort', 'splice', 'unshift'],
+  ARRAY:  ['concat', 'join', 'pop', 'push', 'shift', 'sort', 'splice', 'unshift', 'indexOf', 'lastIndexOf'],
   NUMBER: ['abs', 'ceil', 'cos', 'floor', 'round', 'sin', 'sqrt', 'pow', 'tan']
 };
 
 var AGILE_METHODS = {
-  BASE  : [value, add],
-  OBJECT: [{ name: 'keys', action: objKeys }, toArray, extend],
-  STRING: [startsWith, endsWith, trim, ltrim, rtrim, repeat, slugify, stringular, stripTags, truncate, ucfirst, wrap, reverse],
-  ARRAY : [after, afterWhere, before, beforeWhere, contains, countBy, defaults, map, contains, first,last, flatten,
-          every, groupBy, omit, filter, remove, reverse, unique, xor, max, min, sum,
-          { name: 'pluck', action: map }, { name: 'pick', action: filter }, { name:'some', action: contains }]
+  BASE  : [
+    { name: 'add',   action: add   },
+    { name: 'value', action: value }],
+  OBJECT: [
+    { name: 'keys',    action: objKeys },
+    { name: 'toArray', action: toArray },
+    { name: 'extend',  action: extend  }],
+  STRING: [
+    { name: 'startsWith', action: startsWith },
+    { name: 'endsWith',   action: endsWith   },
+    { name: 'trim',       action: trim       },
+    { name: 'ltrim',      action: ltrim      },
+    { name: 'rtrim',      action: rtrim      },
+    { name: 'repeat',     action: repeat     },
+    { name: 'slugify',    action: slugify    },
+    { name: 'stringular', action: stringular },
+    { name: 'stripTags',  action: stripTags  },
+    { name: 'truncate',   action: truncate   },
+    { name: 'ucfirst',    action: ucfirst    },
+    { name: 'wrap',       action: wrap       },
+    { name: 'reverse',    action: reverse    }],
+  ARRAY : [
+    { name: 'after',       action: after       },
+    { name: 'afterWhere',  action: afterWhere  },
+    { name: 'before',      action: before      },
+    { name: 'beforeWhere', action: beforeWhere },
+    { name: 'contains',    action: contains    },
+    { name: 'countBy',     action: countBy     },
+    { name: 'defaults',    action: defaults    },
+    { name: 'map',         action: map         },
+    { name: 'contains',    action: contains    },
+    { name: 'first',       action: first       },
+    { name: 'last',        action: last        },
+    { name: 'flatten',     action: flatten     },
+    { name: 'every',       action: every       },
+    { name: 'groupBy',     action: groupBy     },
+    { name: 'omit',        action: omit        },
+    { name: 'filter',      action: filter      },
+    { name: 'remove',      action: remove      },
+    { name: 'reverse',     action: reverse     },
+    { name: 'unique',      action: unique      },
+    { name: 'xor',         action: xor         },
+    { name: 'max',         action: max         },
+    { name: 'min',         action: min         },
+    { name: 'sum',         action: sum         },
+    { name: 'pluck',       action: map         },
+    { name: 'pick',        action: filter      },
+    { name:'some',         action: contains    }]
 };
 
 /**

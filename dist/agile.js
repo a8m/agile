@@ -1,6 +1,6 @@
 /**
  * agile repo
- * @version v0.0.0 - 2014-11-06 * @link https://github.com/a8m/agile
+ * @version v0.0.0 - 2014-11-07 * @link https://github.com/a8m/agile
  * @author Ariel Mashraki <ariel@mashraki.co.il>
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
@@ -2319,17 +2319,59 @@ var UNWRAPPED_FUNC = /^(?:value|identity)$/;
  */
 var PROTO_METHODS = {
   STRING: ['charAt', 'concat', 'indexOf', 'lastIndexOf', 'match', 'replace','slice', 'substr', 'substring', 'toLowerCase', 'toUpperCase'],
-  ARRAY:  ['concat', 'join', 'pop', 'push', 'shift', 'sort', 'splice', 'unshift'],
+  ARRAY:  ['concat', 'join', 'pop', 'push', 'shift', 'sort', 'splice', 'unshift', 'indexOf', 'lastIndexOf'],
   NUMBER: ['abs', 'ceil', 'cos', 'floor', 'round', 'sin', 'sqrt', 'pow', 'tan']
 };
 
 var AGILE_METHODS = {
-  BASE  : [value, add],
-  OBJECT: [{ name: 'keys', action: objKeys }, toArray],
-  STRING: [startsWith, endsWith, trim, ltrim, rtrim, repeat, slugify, stringular, stripTags, truncate, ucfirst, wrap, reverse],
-  ARRAY : [after, afterWhere, before, beforeWhere, contains, countBy, defaults, map, contains, first,last, flatten,
-          every, groupBy, omit, filter, remove, reverse, unique, xor, max, min, sum,
-          { name: 'pluck', action: map }, { name: 'pick', action: filter }, { name:'some', action: contains }]
+  BASE  : [
+    { name: 'add',   action: add   },
+    { name: 'value', action: value }],
+  OBJECT: [
+    { name: 'keys',    action: objKeys },
+    { name: 'toArray', action: toArray },
+    { name: 'extend',  action: extend  }],
+  STRING: [
+    { name: 'startsWith', action: startsWith },
+    { name: 'endsWith',   action: endsWith   },
+    { name: 'trim',       action: trim       },
+    { name: 'ltrim',      action: ltrim      },
+    { name: 'rtrim',      action: rtrim      },
+    { name: 'repeat',     action: repeat     },
+    { name: 'slugify',    action: slugify    },
+    { name: 'stringular', action: stringular },
+    { name: 'stripTags',  action: stripTags  },
+    { name: 'truncate',   action: truncate   },
+    { name: 'ucfirst',    action: ucfirst    },
+    { name: 'wrap',       action: wrap       },
+    { name: 'reverse',    action: reverse    }],
+  ARRAY : [
+    { name: 'after',       action: after       },
+    { name: 'afterWhere',  action: afterWhere  },
+    { name: 'before',      action: before      },
+    { name: 'beforeWhere', action: beforeWhere },
+    { name: 'contains',    action: contains    },
+    { name: 'countBy',     action: countBy     },
+    { name: 'defaults',    action: defaults    },
+    { name: 'map',         action: map         },
+    { name: 'contains',    action: contains    },
+    { name: 'first',       action: first       },
+    { name: 'last',        action: last        },
+    { name: 'flatten',     action: flatten     },
+    { name: 'every',       action: every       },
+    { name: 'groupBy',     action: groupBy     },
+    { name: 'omit',        action: omit        },
+    { name: 'filter',      action: filter      },
+    { name: 'remove',      action: remove      },
+    { name: 'reverse',     action: reverse     },
+    { name: 'unique',      action: unique      },
+    { name: 'xor',         action: xor         },
+    { name: 'max',         action: max         },
+    { name: 'min',         action: min         },
+    { name: 'sum',         action: sum         },
+    { name: 'pluck',       action: map         },
+    { name: 'pick',        action: filter      },
+    { name:'some',         action: contains    }]
 };
 
 /**
@@ -2347,11 +2389,12 @@ function defineWrapperPrototype(ctor, methods, prototype) {
     var func = isString(method) ? prototype[method]
       : isObject(method) ? method.action //if it's method with custom name
       : method;
+    //if it's a prototype function, but not a static function, e.g: Math.pow
+    var isStatic = isString(method) && !(prototype.E);
     ctor.prototype[methodName] = function() {
       var fnArgs = Array.prototype.slice.call(arguments);
       var args   = [this.__value__].concat(fnArgs);
-      //if it's a prototype function, but not a static function, e.g: Math.pow
-      var res  = isString(method) && !(prototype.E)
+      var res  = isStatic
         ? func.call(this.__value__, fnArgs)
         : func.apply(this, args);
       return UNWRAPPED_FUNC.test(methodName) || isBoolean(res)
@@ -2473,18 +2516,16 @@ agile.isArray     = isArray;
 agile.isDate      = isDate;
 agile.isFunction  = isFunction;
 agile.isEmpty     = isEmpty;
-
 //@static utils methods
+agile.copy       = copy;
 agile.equals     = equals;
 agile.identity   = value;
-agile.extend     = extend;
 agile.dictionary = createMap;
 agile.noop       = noop;
 agile.uppercase  = uppercase;
 agile.lowercase  = lowercase;
 agile.toJson     = toJson;
 agile.forEach    = forEach;
-
 //@static parse method
 agile.parse      = $parse;
 
@@ -2494,8 +2535,10 @@ function runInContext(context) {
   return (typeof module === "object" && module && module.exports === context)
     ? module.exports = agile
     // Browsers
-    : context._ = agile;
-}//@expose agile
+    : context[(context._) ? 'agile' : '_'] = agile;
+}
+
+//@expose agile
 runInContext(context);
 
 })( this );
