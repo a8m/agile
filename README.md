@@ -28,6 +28,7 @@
   - [unique](#unique)
   - [xor](#xor)
 - [Object](#object)
+  - [keys](#keys)
   - [toArray](#toarray)
 - [String](#string)
   - [endsWith](#endswith)
@@ -485,6 +486,23 @@ _({
   John : { age: 31 }
 }).toArray(true)
   .value(); // → [{$key:'Ariel', age:25}, {$key:'Dan', age:21}, {$key:'John', age:31}]
+```
+###keys
+Creates an array composed of the own enumerable property names of an object.  
+if `nested` set to true, it will return the properties in a recursively nested style(used mainly with `parse.setter`, `parse.getter`).  
+**Usage:** `_.keys(object, nested[optional])`
+```js
+var user = { 
+  name: 'Ariel M', 
+  age: 26, 
+  permissions: { isAdmin: true }, 
+  details: { address: { city: 'Tel Aviv', zip: 61019 } }
+};
+_.keys(user); 
+// → ['name', 'age', 'permissions', 'details']
+
+_.keys(user, true);
+// → ['name', 'age', 'permissions.isAdmin', 'details.address.city', 'details.address.zip']
 ```
 
 #String
