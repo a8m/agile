@@ -166,8 +166,8 @@ agile.isArray     = isArray;
 agile.isDate      = isDate;
 agile.isFunction  = isFunction;
 agile.isEmpty     = isEmpty;
-
 //@static utils methods
+agile.copy       = copy;
 agile.equals     = equals;
 agile.identity   = value;
 agile.extend     = extend;
@@ -177,7 +177,6 @@ agile.uppercase  = uppercase;
 agile.lowercase  = lowercase;
 agile.toJson     = toJson;
 agile.forEach    = forEach;
-
 //@static parse method
 agile.parse      = $parse;
 
@@ -189,3 +188,4 @@ function runInContext(context) {
     // Browsers
     : context._ = agile;
 }
+
