@@ -205,6 +205,12 @@ describe('agile.js', function() {
       //aliases some
       expect(_(orders).some('id === 5'))
         .toEqual(_(orders).contains('id === 5'));
+
+      //objects
+      expect(_({a:1})
+        .extend({b:2}, {c:3})
+        .keys()
+        .value()).toEqual(['a', 'b', 'c']);
     });
 
     it('should return a value and not wrapper object', function() {

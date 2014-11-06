@@ -18,7 +18,7 @@ var PROTO_METHODS = {
 
 var AGILE_METHODS = {
   BASE  : [value, add],
-  OBJECT: [{ name: 'keys', action: objKeys }, toArray],
+  OBJECT: [{ name: 'keys', action: objKeys }, toArray, extend],
   STRING: [startsWith, endsWith, trim, ltrim, rtrim, repeat, slugify, stringular, stripTags, truncate, ucfirst, wrap, reverse],
   ARRAY : [after, afterWhere, before, beforeWhere, contains, countBy, defaults, map, contains, first,last, flatten,
           every, groupBy, omit, filter, remove, reverse, unique, xor, max, min, sum,
@@ -170,7 +170,6 @@ agile.isEmpty     = isEmpty;
 agile.copy       = copy;
 agile.equals     = equals;
 agile.identity   = value;
-agile.extend     = extend;
 agile.dictionary = createMap;
 agile.noop       = noop;
 agile.uppercase  = uppercase;
@@ -186,6 +185,6 @@ function runInContext(context) {
   return (typeof module === "object" && module && module.exports === context)
     ? module.exports = agile
     // Browsers
-    : context._ = agile;
+    : context[(context._) ? '_' : 'agile'] = agile;
 }
 
