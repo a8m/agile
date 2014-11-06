@@ -46,6 +46,7 @@
   - [ucfirst](#ucfirst)
   - [wrap](#wrap)
 - [Utils](#utils)
+  - [copy](#copy)
   - [dictionary](#dictionary)
   - [equals](#equals)
   - [extend](#extend)
@@ -674,4 +675,56 @@ _(['ariel', 'dan', 'john'])
   .ucfirst()
   .wrap('Team members: ', ' ')
   .value(); // → 'Team members: Ariel, Dan, John'
+```
+#Utils
+###copy
+Creates a recursive copy of `source` object into `dest` object, could be an object or an array.  
+**Usage:** `_.copy(src, dst)`
+```js
+var a = [1,2,3, { a: 1, b: 2 }];
+var b;
+_.copy(a, b);
+
+//Test result
+_.equals(a, b); // → true
+```
+###dictionary
+Creates a new object without a prototype.  
+**Usage:** `_.dictionary()`
+```js
+var map = _.dictionary();
+console.log(map.toString); // → undefined
+```
+###equals
+Determines if two objects or two values are equivalent.  
+**Usage:** `_.equals(o1, o2)`
+```js
+_.equals({}, {});                   // → true
+_.equals(new Date(), new Date());   // → true
+_.equals(/\//g, new RegExp(/\//g)); // → true
+```
+###extend
+Extends the destination object `dst` by copying own enumerable properties from the `src` object(s) to `dst`. You can specify multiple `src` objects.  
+**Usage:** `_.extend(dst, arg...)`
+```js
+_.extend({a:1}, {b:2}, {a:3, c: 4}); // → {a: 3, b: 2, c: 4}
+```
+###identity
+`identity` function returns its first argument.  
+**Usage:** `_.identity(val)`
+```js
+_.identity(1); // → 1
+```
+###forEach
+Invokes an `iterator` function once for each member in a collection(object, array).  
+The `iterator` function is invoked with (value, key/index, obj/array).  
+**Usage:** `_.forEach(collection, iteratorFn, context[optional]);`
+###noop
+A function that performs no operations.  
+**Usage:** `_.noop()`
+```js
+function fn(cb) {
+ //...
+ return (cb || _.noop)(args);
+}
 ```
