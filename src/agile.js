@@ -168,12 +168,15 @@ agile.isFunction  = isFunction;
 agile.isEmpty     = isEmpty;
 
 //@static utils methods
-agile.equals    = equals;
-agile.identity  = value;
-agile.extend    = extend;
-agile.Map       = createMap;
-agile.noop      = noop;
-agile.uppercase = uppercase;
-agile.lowercase = lowercase;
-agile.toJson    = toJson;
-agile.forEach   = forEach;
+agile.equals     = equals;
+agile.identity   = value;
+agile.extend     = extend;
+agile.dictionary = createMap;
+agile.noop       = noop;
+agile.uppercase  = uppercase;
+agile.lowercase  = lowercase;
+agile.toJson     = toJson;
+agile.forEach    = forEach;
+
+//@static parse method
+agile.parse      = $parse;

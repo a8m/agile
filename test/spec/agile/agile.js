@@ -11,6 +11,7 @@ describe('agile.js', function() {
       expect(_.some).toEqual(_.contains);
       expect(_.keys).toEqual(objKeys);
       expect(_.toArray).toEqual(toArray);
+      expect(_.parse).toEqual($parse);
     });
   });
 
@@ -166,6 +167,7 @@ describe('agile.js', function() {
       { id:5, customer: { name: 'toy', id: 30 } }
     ];
     it('should works with different chaining', function() {
+
       expect(_(orders)
         .unique('customer.id')
         .map('id')
