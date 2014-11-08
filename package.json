@@ -1,9 +1,9 @@
 {
   "name": "agile",
-  "description": "agile repo",
-  "version": "0.0.0",
-  "filename": "agile.min.js",
-  "main": "dist/agile.min.js",
+  "description": "Like Underscore, but with zero callbacks and really more fun",
+  "version": "0.0.1",
+  "filename": "agile.js",
+  "main": "dist/agile.js",
   "homepage": "https://github.com/a8m/agile",
   "author": "Ariel Mashraki <ariel@mashraki.co.il>",
   "repository": {
@@ -14,7 +14,6 @@
     "node": ">=0.10.0"
   },
   "keywords": [
-    "lazy",
     "client",
     "browser",
     "filter",

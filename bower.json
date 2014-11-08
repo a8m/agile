@@ -1,8 +1,8 @@
 {
   "name": "agile",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "main": "dist/agile.js",
-  "description": "agile repo",
+  "description": "Like Underscore, but with zero callbacks and really more fun",
   "repository": {
     "type": "git",
     "url": "https://github.com/a8m/agile.git"

@@ -1,6 +1,6 @@
 /**
- * agile repo
- * @version v0.0.0 - 2014-11-07 * @link https://github.com/a8m/agile
+ * Like Underscore, but with zero callbacks and really more fun
+ * @version v0.0.1 - 2014-11-08 * @link https://github.com/a8m/agile
  * @author Ariel Mashraki <ariel@mashraki.co.il>
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
@@ -2363,8 +2363,9 @@ var AGILE_METHODS = {
     { name: 'omit',        action: omit        },
     { name: 'filter',      action: filter      },
     { name: 'remove',      action: remove      },
-    { name: 'reverse',     action: reverse     },
-    { name: 'unique',      action: unique      },
+    { name: 'reverse',     action: reverse     }, //TODO:
+    { name: 'unique',      action: unique      }, // Maybe we could set the name as an array for aliases issue
+    { name: 'uniq',        action: unique      }, // { name: ['uniq', 'unique'], action: unique }
     { name: 'xor',         action: xor         },
     { name: 'max',         action: max         },
     { name: 'min',         action: min         },
