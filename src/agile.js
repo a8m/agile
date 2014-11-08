@@ -56,8 +56,9 @@ var AGILE_METHODS = {
     { name: 'omit',        action: omit        },
     { name: 'filter',      action: filter      },
     { name: 'remove',      action: remove      },
-    { name: 'reverse',     action: reverse     },
-    { name: 'unique',      action: unique      },
+    { name: 'reverse',     action: reverse     }, //TODO:
+    { name: 'unique',      action: unique      }, // Maybe we could set the name as an array for aliases issue
+    { name: 'uniq',        action: unique      }, // { name: ['uniq', 'unique'], action: unique }
     { name: 'xor',         action: xor         },
     { name: 'max',         action: max         },
     { name: 'min',         action: min         },
