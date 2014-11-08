@@ -645,7 +645,7 @@ var local = {
   age: 50,
   sayHello: function(name, age) { 
     return 'Hello ' + name + ' I\'m '+ age + ' years old.' 
-    }
+  }
 };
 _.parse('sayHello(name, age)')(user, local);
 // → Hello Ariel M. I'm 50 years old.
