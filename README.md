@@ -440,7 +440,8 @@ _(scores)
 ###unique
 Get an array and filter duplicate members.  
 if `expression` is provided it's filters by this `expression` as unique identifier.  
-**Usage:** `_.unique(array, expression[optional])`
+**Usage:** `_.unique(array, expression[optional])`  
+**Aliases:** `uniq`
 ```js
 _.unique([12,3,4,12,4,5,6]) 
 // → [12, 3, 4, 5, 6]
