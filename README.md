@@ -1,6 +1,7 @@
 #agile.js [![Build Status](https://travis-ci.org/a8m/agile.svg?branch=master)](https://travis-ci.org/a8m/agile) [![Coverage Status](https://img.shields.io/coveralls/a8m/agile.svg)](https://coveralls.io/r/a8m/agile?branch=master)
 >Like Underscore, but with zero callbacks and really more fun, **v0.0.1**
 
+- [Get Started](#get-started)
 - [Collection](#collection)
   - [add](#add)
   - [after](#after)
@@ -67,6 +68,42 @@
   - [isNumber](#isnumber)
   - [isFunction](#isfunction)
   - [isEmpty](#isempty)
+
+#Get Started
+**(1)** You can install **agile.js** using 3 different methods:  
+- clone & [build](#developing) this repository
+- via **[Bower](http://bower.io/)**: by running `$ bower install agile` from your terminal
+- via **[npm](https://www.npmjs.org/)**: by running `$ npm install agile` from your terminal
+- soon, <i>cdnjs</i> will be one of the options
+
+**(2)** Add to your project:  
+**For the Browser:**  
+Include `agile.js` (or `agile.min.js`) in your `index.html`.  
+```html
+<script src="bower_components/agile/dist/agile.js"></script>
+```
+**For Node Apps:**  
+```js
+var _ = require('agile');
+```
+**(3)** Start Playing with agile.js:
+```js
+var orders = [
+  { id: 21, customer: { id: 2, name: 'John P.' }, product: { price: 21.12 }  },
+  { id: 22, customer: { id: 1, name: 'Cati P.' }, product: { price: 89.21 }  },
+  { id: 23, customer: { id: 1, name: 'Cati P.' }, product: { price: 49.00 }  },
+  { id: 24, customer: { id: 3, name: 'Poul S.' }, product: { price: 10.22 }  },
+  { id: 25, customer: { id: 4, name: 'Erik L.' }, product: { price: 11.31 }  },
+  { id: 26, customer: { id: 4, name: 'Erik L.' }, product: { price: 90.99 }  },
+  { id: 27, customer: { id: 2, name: 'Cati P.' }, product: { price: 88.99 }  }
+];
+_(orders)               // ArrayWrapper
+  .map('product.price') // [21.12, 89.21, 49, 10.22, 11.31, 90.99, 88.99]
+  .sum()                // 360.84
+  .round()              // 361
+  .add(10)              // 371
+  .value();             // get the value;
+```
 
 #Collection
 ###after
