@@ -34,7 +34,7 @@ _.max(orders, function(order) {
 //Agile: get the greatest purchase
 _.max(orders, 'product.price');
 
-//Undecore: get sum of all orders
+//Underscore: get sum of all orders
 _.chain(orders)
   .map(function(order) {
     if(order.hasOwnProperty('product')) {
