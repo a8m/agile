@@ -1,7 +1,7 @@
 #agile.js [![Build Status](https://travis-ci.org/a8m/agile.svg?branch=master)](https://travis-ci.org/a8m/agile) [![Coverage Status](https://img.shields.io/coveralls/a8m/agile.svg)](https://coveralls.io/r/a8m/agile?branch=master)
 >Like Underscore, but with zero callbacks and really more fun, **v0.0.1**
 
-**Quick example compared to Underscore:**
+**Quick examples compared to Underscore:**
 ```js
 var orders = [
   { id: 21, customer: { id: 2, name: 'John P.' }, product: { price: 21.12 }  },
