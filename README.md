@@ -43,7 +43,8 @@ _.chain(orders)
     return 0;
   })
   .reduce(function(memo, num) { 
-     return memo + num; }, 
+     return memo + num; 
+    }, 
   0)
   .value(); // → 380.03
 //Agile: get sum of all orders
