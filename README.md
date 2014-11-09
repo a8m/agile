@@ -638,7 +638,7 @@ var nameSetter = nameGetter.assign;
 
 nameGetter(user); // → 'Ariel M.'
 nameSetter(user, 'Dan T.');
-nameGetter(user); // → 'Dan M.'
+nameGetter(user); // → 'Dan T.'
 
 //Example use local(override) object
 var local = {
