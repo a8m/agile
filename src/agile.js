@@ -49,6 +49,7 @@ var AGILE_METHODS = {
     { name: 'defaults',    action: defaults    },
     { name: 'map',         action: map         },
     { name: 'contains',    action: contains    },
+    { name: 'find',        action: find        },
     { name: 'first',       action: first       },
     { name: 'last',        action: last        },
     { name: 'flatten',     action: flatten     },
