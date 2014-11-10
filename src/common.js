@@ -132,7 +132,35 @@ function isArrayLike(obj) {
     return isString(obj) || isArray(obj) || length === 0 ||
         typeof length === 'number' && length > 0 && (length - 1) in obj;
 }
-
+/**
+ * @private
+ * @param obj
+ * @returns {*|boolean}
+ */
 function isWindow(obj) {
     return obj && obj.window === obj;
+}
+
+/**
+ * @description
+ * Iterate over the given array and return the first member that the getterFn
+ * returns true, if `isIndex` set to `true`, return the index.
+ * @param array
+ * @param getterFn
+ * @param isIndex
+ * @returns {*}
+ */
+function findInArray(array, getterFn, isIndex) {
+
+  var index = -1;
+  var res;
+
+  while(++index < array.length) {
+    if(getterFn(array[index])) {
+      res = isIndex ? index : array[index];
+      break;
+    }
+  }
+
+  return res;
 }
