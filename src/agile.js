@@ -23,7 +23,8 @@ var AGILE_METHODS = {
   OBJECT: [
     { name: 'keys',    action: objKeys },
     { name: 'toArray', action: toArray },
-    { name: 'extend',  action: extend  }],
+    { name: 'extend',  action: extend  },
+    { name: 'forEach', action: forEach }],
   STRING: [
     { name: 'startsWith', action: startsWith },
     { name: 'endsWith',   action: endsWith   },
@@ -65,7 +66,8 @@ var AGILE_METHODS = {
     { name: 'sum',         action: sum         },
     { name: 'pluck',       action: map         },
     { name: 'pick',        action: filter      },
-    { name:'some',         action: contains    }]
+    { name: 'some',        action: contains    },
+    { name: 'forEach',     action: forEach     }] // DRY, remove common collection's function to owned array
 };
 
 /**
@@ -219,7 +221,6 @@ agile.noop       = noop;
 agile.uppercase  = uppercase;
 agile.lowercase  = lowercase;
 agile.toJson     = toJson;
-agile.forEach    = forEach;
 //@static parse method
 agile.parse      = $parse;
 

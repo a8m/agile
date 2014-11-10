@@ -211,6 +211,14 @@ describe('agile.js', function() {
         .extend({b:2}, {c:3})
         .keys()
         .value()).toEqual(['a', 'b', 'c']);
+
+      expect(_({a:1})
+        .forEach(function(){}, this)
+        .value()).toEqual({a:1});
+
+      expect(_([1,2,3])
+        .forEach(function(){}, this)
+        .value()).toEqual([1,2,3]);
     });
 
     it('should return a value and not wrapper object', function() {
