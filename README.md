@@ -65,6 +65,7 @@ _(orders)
   - [defaults](#defaults)
   - [every](#every)
   - [filter](#filter)
+  - [find](#find)
   - [first](#first)
   - [flatten](#flatten)
   - [groupBy](#groupby)
@@ -324,6 +325,27 @@ var users = [
 _.pick(users, 'user.isAdmin');
 // → [ users[0], users[2] ]
 ```
+###find
+Iterate over the given array and return the first member that the `expression` returns truthy for.  
+**Usage:** `_.find(array, expression/callback)`
+```js
+var orders = [
+  { id: 21, product: { price: 21.12 }, auth: ['3s!sa0'] },
+  { id: 22, product: { price: 89.21 }, auth: ['@3dRg1'] },
+  { id: 23, product: { price: 49.00 }, auth: ['a44Fy+'] },
+  { id: 24, product: { price: 10.22 }, auth: ['WS4%a0'] },
+  { id: 25, product: { price: 11.31 }, auth: ['7Y#d_1'] }
+];
+_.find(orders, 'product.price > 50'); 
+// → {id: 22, product: Object, auth: Array[1]}
+
+_.find(orders, 'auth.indexOf("7Y#d_1") !== -1');
+// → {id: 25, product: Object, auth: Array[1]}
+
+_.find(orders, '!(id%2)');
+// → {id: 22, product: Object, auth: Array[1]}
+```
+
 ###first
 Gets the first element **or** first `n` elements of an array.  
 if expression is provided, is returns as long the expression return truthy.  
