@@ -246,6 +246,10 @@ describe('agile.js', function() {
         .value()).toEqual(orders[1]);
 
       expect(_(orders)
+        .findLastIndex('product.price === 99.21')
+        .value()).toEqual(2);
+
+      expect(_(orders)
         .findIndex('product.price === 99.21')
         .value()).toEqual(1);
     });
