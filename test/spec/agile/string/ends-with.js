@@ -1,34 +1,79 @@
 'use strict';
 
-describe('endsWith', function () {
+describe('The endsWith filter', function () {
+  var input;
 
-  it('should return whether string ends with the ends parameter', function() {
+  describe('given an object, array, number or boolean', function () {
+    var inputs = [{}, [], 1, false];
 
-    expect(endsWith('string', 'g')).toBeTruthy();
-    expect(endsWith('string', 'ing')).toBeTruthy();
-    expect(endsWith('foo bar', 'BAR')).toBeTruthy();
-
-    expect(endsWith('.JPG', '.jpg')).toBeTruthy();
-    expect(endsWith('string', 'str')).toBeFalsy();
-    expect(endsWith('string', 'fing')).toBeFalsy();
-    expect(endsWith('foo bar', 'baz')).toBeFalsy();
-
+    it('should not be applied', function () {
+      inputs.forEach(function (input) {
+        expect(endsWith(input)).toEqual(input);
+      });
+    });
   });
 
-  it('should be case sensitive', function() {
+  describe('given a string as input', function () {
+    var input = 'string',
+        isCS;
 
-    expect(endsWith('.JPG', '.jpg', true)).toBeFalsy();
-    expect(endsWith('string', 'ING', true)).toBeFalsy();
-    expect(endsWith('string', 'ING', false)).toBeTruthy();
-    expect(endsWith('foo bar', 'Foo B', true)).toBeFalsy();
+    describe('when the case insensitive parameter is omitted', function () {
 
+      describe('and the input ends with the term', function () {
+
+        it('should return true regardless of the case', function () {
+          expect(endsWith(input, 'g')).toBeTruthy();
+          expect(endsWith(input, 'ing')).toBeTruthy();
+          expect(endsWith(input, 'ING')).toBeTruthy();
+        });
+
+      });
+
+      describe('and the input doesn\'t end with the term', function () {
+
+        it('should return false regardless of the case', function () {
+          expect(endsWith(input, 'str')).toBeFalsy();
+          expect(endsWith(input, 'fing')).toBeFalsy();
+          expect(endsWith(input, 'TING')).toBeFalsy();
+        });
+      });
+
+    });
+
+    describe('when case insensitive is true', function () {
+      beforeEach(function () {
+        isCS = true;
+      });
+
+      describe('and the input ends with the term', function () {
+
+        it('should return false if the case is different', function () {
+          expect(endsWith(input, 'inG', isCS)).not.toBeTruthy();
+          expect(endsWith(input, 'ING', isCS)).not.toBeTruthy();
+        });
+
+        it('should return true if they are in the same case', function () {
+          expect(endsWith(input, 'ing', isCS)).toBeTruthy();
+        });
+      });
+    });
+
+    describe('when case insensitive is false', function () {
+      beforeEach(function () {
+        isCS = false;
+      });
+
+      describe('and the input ends with the term', function () {
+
+        it('should return true even if the case is different', function () {
+          expect(endsWith(input, 'inG', isCS)).toBeTruthy();
+          expect(endsWith(input, 'ING', isCS)).toBeTruthy();
+        });
+
+        it('should return true if they are in the same case', function () {
+          expect(endsWith(input, 'ing', isCS)).toBeTruthy();
+        });
+      });
+    });
   });
-
-  it('should get a !string and not touch it', function() {
-    expect(endsWith({})).toEqual({});
-    expect(endsWith([])).toEqual([]);
-    expect(endsWith(1)).toEqual(1);
-    expect(endsWith(!1)).toBeFalsy();
-  });
-
 });
