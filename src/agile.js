@@ -51,6 +51,7 @@ var AGILE_METHODS = {
     { name: 'contains',    action: contains    },
     { name: 'find',        action: find        },
     { name: 'findIndex',   action: findIndex   },
+    { name: 'findLast',    action: findLast    },
     { name: 'first',       action: first       },
     { name: 'last',        action: last        },
     { name: 'flatten',     action: flatten     },

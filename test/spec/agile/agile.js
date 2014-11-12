@@ -229,5 +229,25 @@ describe('agile.js', function() {
         .every('b <= 2'))
         .toEqual(false);
     });
+
+    it('should return the find value', function() {
+      var orders = [
+        { id: 1, product: { price: 21.12 } },
+        { id: 2, product: { price: 99.21 } },
+        { id: 3, product: { price: 99.21 } },
+        { id: 4, product: { price: 70.90 } }
+      ];
+      expect(_(orders)
+        .findLast('product.price === 99.21')
+        .value()).toEqual(orders[2]);
+
+      expect(_(orders)
+        .find('product.price === 99.21')
+        .value()).toEqual(orders[1]);
+
+      expect(_(orders)
+        .findIndex('product.price === 99.21')
+        .value()).toEqual(1);
+    });
   });
 });
