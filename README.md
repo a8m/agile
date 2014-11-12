@@ -67,6 +67,8 @@ _(orders)
   - [filter](#filter)
   - [find](#find)
   - [findIndex](#findindex)
+  - [findLast](#findlast)
+  - [findLastIndex](#findlastindex)
   - [first](#first)
   - [flatten](#flatten)
   - [groupBy](#groupby)
@@ -338,13 +340,33 @@ var orders = [
   { id: 25, product: { price: 11.31 }, auth: ['7Y#d_1'] }
 ];
 _.find(orders, 'product.price > 50'); 
-// → {id: 22, product: Object, auth: Array[1]}
+// → { id: 22, product: { price: 89.21 }, auth: ['@3dRg1'] }
 
 _.find(orders, 'auth.indexOf("7Y#d_1") !== -1');
-// → {id: 25, product: Object, auth: Array[1]}
+// → { id: 25, product: { price: 11.31 }, auth: ['7Y#d_1'] }
 
 _.find(orders, '!(id%2)');
-// → {id: 22, product: Object, auth: Array[1]}
+// → { id: 22, product: { price: 89.21 }, auth: ['@3dRg1'] }
+```
+###findLast
+Iterate over the given array and return the last member that the `expression` returns truthy for.  
+**Usage:** `_.findLast(array, expression/callback)`
+```js
+var orders = [
+  { id: 21, product: { price: 21.12 }, auth: ['3s!sa0'] },
+  { id: 22, product: { price: 89.21 }, auth: ['@3dRg1'] },
+  { id: 23, product: { price: 49.00 }, auth: ['7Y#d_1'] },
+  { id: 24, product: { price: 10.22 }, auth: ['WS4%a0'] },
+  { id: 25, product: { price: 91.31 }, auth: ['7Y#d_1'] }
+];
+_.findLast(orders, 'product.price > 50'); 
+// → { id: 25, product: { price: 91.31 }, auth: ['7Y#d_1'] }
+
+_.findLast(orders, 'auth.indexOf("7Y#d_1") !== -1');
+// → { id: 25, product: { price: 91.31 }, auth: ['7Y#d_1'] }
+
+_.findLast(orders, '!(id%2)');
+// → { id: 24, product: { price: 10.22 }, auth: ['WS4%a0'] }
 ```
 ###findIndex
 Iterate over the given array and return the **index** of the first member that the `expression` returns truthy for.  
@@ -359,6 +381,20 @@ var orders = [
 ];
 _.findIndex(orders, 'product.price > 50');            // → 1
 _.findIndex(orders, 'auth.indexOf("7Y#d_1") !== -1'); // → 4
+```
+###findLastIndex
+Iterate over the given array and return the **index** of the last member that the `expression` returns truthy for.  
+**Usage:** `_.findLastIndex(array, expression/callback)`
+```js
+var orders = [
+  { id: 21, product: { price: 21.12 }, auth: ['3s!sa0'] },
+  { id: 22, product: { price: 89.21 }, auth: ['@3dRg1'] },
+  { id: 23, product: { price: 49.00 }, auth: ['a44Fy+'] },
+  { id: 24, product: { price: 90.22 }, auth: ['a44Fy+'] },
+  { id: 25, product: { price: 11.31 }, auth: ['7Y#d_1'] }
+];
+_.findLastIndex(orders, 'product.price > 50');             // → 3
+_.findLastIndex(orders, 'auth.indexOf("a44Fy+") !== -1');  // → 3
 ```
 
 ###first
