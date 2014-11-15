@@ -71,6 +71,8 @@ var AGILE_METHODS = {
     { name: 'pluck',         action: map           },
     { name: 'pick',          action: filter        },
     { name: 'some',          action: contains      },
+    { name: 'orderBy',       action: orderBy       },
+    { name: 'sortBy',        action: orderBy       },
     { name: 'forEach',       action: forEach       }] // DRY, remove common collection's function to owned array
 };
 
