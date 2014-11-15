@@ -2,6 +2,7 @@
 >Like Underscore, but with zero callbacks and really more fun, **v0.0.2**
 
 - [Get Started](#get-started)
+- [Contributing](#contributing)
 - [Collection](#collection)
   - [add](#add)
   - [after](#after)
@@ -875,4 +876,25 @@ function fn(cb) {
  //...
  return (cb || _.noop)(args);
 }
+```
+#Contributing
+* If you planning add some feature please create issue before.
+* Don't forget about tests.  
+
+**Clone the project:**
+```sh
+$ git clone
+$ npm install
+$ bower install
+```
+**Run the tests:**
+```sh
+$ grunt test
+```
+**Deploy:**  
+Run the build task, update version before(bower,package)
+```sh
+$ grunt build
+$ git tag v0.*.*
+$ git push origin master --tags
 ```
