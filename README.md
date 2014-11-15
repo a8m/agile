@@ -516,8 +516,36 @@ _.omit(users, 'id > 2 && !name.indexOf("ba")');
 ###orderBy
 Orders a specified array by the expression predicate.  
 It is ordered alphabetically for strings and numerically for numbers.  
-**Usage:** `_.orderBy(array, expression/callback, reverse[optional])`
+**Usage:** `_.orderBy(array, expression/callback, reverse[optional])`  
 **Aliases:** `_.sortBy`
+```js
+var orders = [
+  { id: 1, product: { price: 21.12 }, date: new Date('01/01/2014') },
+  { id: 2, product: { price: 99.21 }, date: new Date('01/01/2014') },
+  { id: 3, product: { price: 99.90 }, date: new Date('01/01/2013') },
+  { id: 4, product: { price: 99.99 }, date: new Date('01/01/1970') }
+];
+
+_.orderBy(orders, 'date');
+// → [orders[3], orders[2], orders[1], orders[0]];
+
+_.orderBy(orders, '+product.price');
+// → [orders[0], orders[1], orders[2], orders[3]];
+
+_.orderBy(orders, '-product.price');
+// → [orders[3], orders[2], orders[1], orders[0]]
+
+_.orderBy(orders, ['-date', '-id']);
+// → [orders[1], orders[0], orders[2], orders[3]]
+
+_.orderBy([5,1,4,3,2]);           // → [1, 2, 3, 4, 5]
+_.orderBy([5,1,4,3,2], '-');      // → [5, 4, 3, 2, 1]
+.orderBy([5,1,4,3,2], '-', true); // → [1, 2, 3, 4, 5]
+
+// sort by multiple arguments
+_.orderBy([{a:1, b:10}, {a:1, b:4}, {a:0, b:5}], ['a', 'b']);
+// → [{ a:0, b:5 }, { a:1, b:4 }, { a:1, b:10 }]
+```
 
 ###remove
 remove specific members from array by equality.  
