@@ -1,6 +1,6 @@
 {
   "name": "agile",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "main": "dist/agile.js",
   "description": "Like Underscore, but with zero callbacks and really more fun",
   "repository": {

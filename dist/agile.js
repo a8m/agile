@@ -1,6 +1,6 @@
 /**
  * Like Underscore, but with zero callbacks and really more fun
- * @version v0.0.1 - 2014-11-08 * @link https://github.com/a8m/agile
+ * @version v0.0.2 - 2014-11-15 * @link https://github.com/a8m/agile
  * @author Ariel Mashraki <ariel@mashraki.co.il>
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
@@ -121,7 +121,6 @@ var hasOwnProperty = Object.prototype.hasOwnProperty;
 var NODE_TYPE_ELEMENT = 1;
 
 /**
- * @private
  * @param {*} obj
  * @return {boolean} Returns true if `obj` is an array or array-like object (NodeList, Arguments, String ...)
  */
@@ -139,9 +138,37 @@ function isArrayLike(obj) {
     return isString(obj) || isArray(obj) || length === 0 ||
         typeof length === 'number' && length > 0 && (length - 1) in obj;
 }
-
+/**
+ * @private
+ * @param obj
+ * @returns {*|boolean}
+ */
 function isWindow(obj) {
     return obj && obj.window === obj;
+}
+
+/**
+ * @description
+ * Iterate over the given array and return the first member that the getterFn
+ * returns true, if `isIndex` set to `true`, return the index.
+ * @param array
+ * @param getterFn
+ * @param isIndex
+ * @returns {*}
+ */
+function findInArray(array, getterFn, isIndex) {
+
+  var index = -1;
+  var res;
+
+  while(++index < array.length) {
+    if(getterFn(array[index])) {
+      res = isIndex ? index : array[index];
+      break;
+    }
+  }
+
+  return res;
 }
 /**
  * @name after-where
@@ -334,6 +361,70 @@ function filter(array, exp) {
       : elm === exp;
   });
 }
+/**
+ * @name findIndex
+ * @kind function
+ *
+ * @description
+ * Iterate over the given array and return the index of the first member that the expression
+ * returns truthy for
+ */
+function findIndex(array, exp) {
+  return (isArray(array) && isDefined(exp))
+    //return the the index of the member
+    ? findInArray(array, $parse(exp), true)
+    : array;
+}
+
+/**
+ * @name findLastIndex
+ * @kind function
+ *
+ * @description
+ * Iterate over the given array and return the index of the last member that the expression
+ * returns truthy for
+ */
+function findLastIndex(array, exp) {
+
+  if(!isArray(array) || isUndefined(exp)) {
+    return array;
+  }
+  //return the the index of the last member
+  var index = (array.length - 1) - findInArray(reverse(array), $parse(exp), true);
+  //if it's a NaN
+  return index === index ? index : -1;
+}
+
+/**
+ * @name findLast
+ * @kind function
+ *
+ * @description
+ * Iterate over the given array and return the last member that the expression
+ * returns truthy for,
+ */
+function findLast(array, exp) {
+  return (isArray(array) && isDefined(exp))
+    //return the member and not an array like `last`
+    ? findInArray(reverse(array), $parse(exp), false)
+    : array;
+}
+
+/**
+ * @name find
+ * @kind function
+ *
+ * @description
+ * Iterate over the given array and return the first member that the expression
+ * returns truthy for,
+ */
+function find(array, exp) {
+  return (isArray(array) && isDefined(exp))
+    //return the member and not an array like `first`
+    ? findInArray(array, $parse(exp), false)
+    : array;
+}
+
 /**
  * @name first
  * @kind function
@@ -531,6 +622,82 @@ function omit(array, exp) {
       ? !$parse(exp)(elm)
       : elm !== exp;
   });
+}
+/**
+ * @name orderBy
+ * @kind function
+ * fork of AngularJS#orderByFilter
+ *
+ * @description
+ * Orders a specified array by the expression predicate.
+ * It is ordered alphabetically for strings and numerically for numbers.
+ */
+function orderBy(array, sortPredicate, reverseOrder) {
+  if (!isArrayLike(array)) {
+    return array;
+  }
+  sortPredicate = isArray(sortPredicate) ? sortPredicate : [sortPredicate];
+  if (sortPredicate.length === 0) { sortPredicate = ['+']; }
+  sortPredicate = sortPredicate.map(function(predicate) {
+    var descending = false;
+    var get = predicate || value;
+    if (isString(predicate)) {
+      if ((predicate.charAt(0) == '+' || predicate.charAt(0) == '-')) {
+        descending = predicate.charAt(0) == '-';
+        predicate = predicate.substring(1);
+      }
+      if (predicate === '') {
+        // Effectively no predicate was passed so we compare identity
+        return reverseComparator(function(a, b) {
+          return compare(a, b);
+        }, descending);
+      }
+      get = $parse(predicate);
+      if (get.constant) {
+        var key = get();
+        return reverseComparator(function(a, b) {
+          return compare(a[key], b[key]);
+        }, descending);
+      }
+    }
+    return reverseComparator(function(a, b) {
+      return compare(get(a),get(b));
+    }, descending);
+  });
+  var arrayCopy = [];
+  for (var i = 0; i < array.length; i++) { arrayCopy.push(array[i]); }
+  return arrayCopy.sort(reverseComparator(comparator, reverseOrder));
+
+  function comparator(o1, o2) {
+    for (var i = 0; i < sortPredicate.length; i++) {
+      var comp = sortPredicate[i](o1, o2);
+      if (comp !== 0) break;
+    }
+    return comp;
+  }
+  function reverseComparator(comp, descending) {
+    return descending
+      ? function(a, b) {return comp(b,a);}
+      : comp;
+  }
+  function compare(v1, v2) {
+    var t1 = typeof v1;
+    var t2 = typeof v2;
+    if (t1 == t2) {
+      if (isDate(v1) && isDate(v2)) {
+        v1 = v1.valueOf();
+        v2 = v2.valueOf();
+      }
+      if (t1 == "string") {
+        v1 = v1.toLowerCase();
+        v2 = v2.toLowerCase();
+      }
+      if (v1 === v2) return 0;
+      return v1 < v2 ? -1 : 1;
+    } else {
+      return t1 < t2 ? -1 : 1;
+    }
+  }
 }
 /**
  * @name remove
@@ -2330,7 +2497,8 @@ var AGILE_METHODS = {
   OBJECT: [
     { name: 'keys',    action: objKeys },
     { name: 'toArray', action: toArray },
-    { name: 'extend',  action: extend  }],
+    { name: 'extend',  action: extend  },
+    { name: 'forEach', action: forEach }],
   STRING: [
     { name: 'startsWith', action: startsWith },
     { name: 'endsWith',   action: endsWith   },
@@ -2346,33 +2514,40 @@ var AGILE_METHODS = {
     { name: 'wrap',       action: wrap       },
     { name: 'reverse',    action: reverse    }],
   ARRAY : [
-    { name: 'after',       action: after       },
-    { name: 'afterWhere',  action: afterWhere  },
-    { name: 'before',      action: before      },
-    { name: 'beforeWhere', action: beforeWhere },
-    { name: 'contains',    action: contains    },
-    { name: 'countBy',     action: countBy     },
-    { name: 'defaults',    action: defaults    },
-    { name: 'map',         action: map         },
-    { name: 'contains',    action: contains    },
-    { name: 'first',       action: first       },
-    { name: 'last',        action: last        },
-    { name: 'flatten',     action: flatten     },
-    { name: 'every',       action: every       },
-    { name: 'groupBy',     action: groupBy     },
-    { name: 'omit',        action: omit        },
-    { name: 'filter',      action: filter      },
-    { name: 'remove',      action: remove      },
-    { name: 'reverse',     action: reverse     }, //TODO:
-    { name: 'unique',      action: unique      }, // Maybe we could set the name as an array for aliases issue
-    { name: 'uniq',        action: unique      }, // { name: ['uniq', 'unique'], action: unique }
-    { name: 'xor',         action: xor         },
-    { name: 'max',         action: max         },
-    { name: 'min',         action: min         },
-    { name: 'sum',         action: sum         },
-    { name: 'pluck',       action: map         },
-    { name: 'pick',        action: filter      },
-    { name:'some',         action: contains    }]
+    { name: 'after',         action: after         },
+    { name: 'afterWhere',    action: afterWhere    },
+    { name: 'before',        action: before        },
+    { name: 'beforeWhere',   action: beforeWhere   },
+    { name: 'contains',      action: contains      },
+    { name: 'countBy',       action: countBy       },
+    { name: 'defaults',      action: defaults      },
+    { name: 'map',           action: map           },
+    { name: 'contains',      action: contains      },
+    { name: 'find',          action: find          },
+    { name: 'findIndex',     action: findIndex     },
+    { name: 'findLast',      action: findLast      },
+    { name: 'findLastIndex', action: findLastIndex },
+    { name: 'first',         action: first         },
+    { name: 'last',          action: last          },
+    { name: 'flatten',       action: flatten       },
+    { name: 'every',         action: every         },
+    { name: 'groupBy',       action: groupBy       },
+    { name: 'omit',          action: omit          },
+    { name: 'filter',        action: filter        },
+    { name: 'remove',        action: remove        },
+    { name: 'reverse',       action: reverse       }, //TODO:
+    { name: 'unique',        action: unique        }, // Maybe we could set the name as an array for aliases issue
+    { name: 'uniq',          action: unique        }, // { name: ['uniq', 'unique'], action: unique }
+    { name: 'xor',           action: xor           },
+    { name: 'max',           action: max           },
+    { name: 'min',           action: min           },
+    { name: 'sum',           action: sum           },
+    { name: 'pluck',         action: map           },
+    { name: 'pick',          action: filter        },
+    { name: 'some',          action: contains      },
+    { name: 'orderBy',       action: orderBy       },
+    { name: 'sortBy',        action: orderBy       },
+    { name: 'forEach',       action: forEach       }] // DRY, remove common collection's function to owned array
 };
 
 /**
@@ -2526,7 +2701,6 @@ agile.noop       = noop;
 agile.uppercase  = uppercase;
 agile.lowercase  = lowercase;
 agile.toJson     = toJson;
-agile.forEach    = forEach;
 //@static parse method
 agile.parse      = $parse;
 
