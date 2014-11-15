@@ -12,6 +12,7 @@ describe('agile.js', function() {
       expect(_.keys).toEqual(objKeys);
       expect(_.toArray).toEqual(toArray);
       expect(_.parse).toEqual($parse);
+      expect(_.sortBy).toEqual(_.orderBy);
     });
   });
 
@@ -252,6 +253,39 @@ describe('agile.js', function() {
       expect(_(orders)
         .findIndex('product.price === 99.21')
         .value()).toEqual(1);
+    });
+
+    it('should sort in chaining object', function() {
+      var orders = [
+        { id: 1, product: { price: 21.12 }, date: new Date('01/01/2014') },
+        { id: 2, product: { price: 99.21 }, date: new Date('01/01/2014') },
+        { id: 3, product: { price: 99.90 }, date: new Date('01/01/2013') },
+        { id: 4, product: { price: 99.99 }, date: new Date('01/01/1970') }
+      ];
+
+      expect(_([2,3,4,1])
+        .orderBy()
+        .value()).toEqual([1,2,3,4]);
+
+      expect(_(orders)
+        .sortBy('date')
+        .value()).toEqual([orders[3], orders[2], orders[0], orders[1]]);
+
+      expect(_(orders)
+        .sortBy('-date')
+        .value()).toEqual([orders[0], orders[1], orders[2], orders[3]]);
+
+      expect(_(orders)
+        .orderBy('+product.price')
+        .value()).toEqual(orders);
+
+      expect(_(orders)
+        .orderBy('-product.price')
+        .value()).toEqual(orders.slice().reverse());
+
+      expect(_(orders)
+        .orderBy(['-date', '-id'])
+        .value()).toEqual([orders[1], orders[0], orders[2], orders[3]]);
     });
   });
 });

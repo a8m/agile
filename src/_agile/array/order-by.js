@@ -1,5 +1,12 @@
-'use strict';
-
+/**
+ * @name orderBy
+ * @kind function
+ * fork of AngularJS#orderByFilter
+ *
+ * @description
+ * Orders a specified array by the expression predicate.
+ * It is ordered alphabetically for strings and numerically for numbers.
+ */
 function orderBy(array, sortPredicate, reverseOrder) {
   if (!isArrayLike(array)) {
     return array;
