@@ -1,4 +1,10 @@
-#Agile.js [![Build Status](https://travis-ci.org/a8m/agile.svg?branch=master)](https://travis-ci.org/a8m/agile) [![Coverage Status](https://img.shields.io/coveralls/a8m/agile.svg)](https://coveralls.io/r/a8m/agile?branch=master)
+#Agile.js 
+[![NPM version][npm-image]][npm-url]
+[![Build status][travis-image]][travis-url]
+[![Test coverage][coveralls-image]][coveralls-url]
+[![Dependency Status][david-image]][david-url]
+[![License][license-image]][license-url]
+[![Downloads][downloads-image]][downloads-url]
 >Like Underscore, but with zero callbacks and really more fun, **v0.0.2**
 
 - [Get Started](#get-started)
@@ -898,3 +904,15 @@ $ grunt build
 $ git tag v0.*.*
 $ git push origin master --tags
 ```
+[npm-image]: https://img.shields.io/npm/v/agile.svg?style=flat-square
+[npm-url]: https://npmjs.org/package/agile
+[travis-image]: https://img.shields.io/travis/a8m/agile.svg?style=flat-square
+[travis-url]: https://travis-ci.org/a8m/agile
+[coveralls-image]: https://img.shields.io/coveralls/a8m/agile.svg?style=flat-square
+[coveralls-url]: https://coveralls.io/r/a8m/agile
+[david-image]: http://img.shields.io/david/a8m/agile.svg?style=flat-square
+[david-url]: https://david-dm.org/a8m/agile
+[license-image]: http://img.shields.io/npm/l/agile.svg?style=flat-square
+[license-url]: LICENSE
+[downloads-image]: http://img.shields.io/npm/dm/agile.svg?style=flat-square
+[downloads-url]: https://npmjs.org/package/agile
