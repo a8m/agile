@@ -13,9 +13,9 @@ function contains(array, exp) {
     return true;
   }
 
-  return array.some( function(elm) {
-    return (isObject(elm) || isFunction(exp)) ?
-      $parse(exp)(elm) :
-      elm === exp;
+  return array.some(function(elm) {
+    return (isObject(elm) || isFunction(exp))
+      ? $parse(exp)(elm)
+      : elm === exp;
   });
 }

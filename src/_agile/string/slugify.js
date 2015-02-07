@@ -9,10 +9,7 @@ function slugify(input, sub) {
 
   var replace = sub || '-';
 
-  if(isString(input)) {
-    return input.toLowerCase()
-      .replace(/\s+/g, replace);
-  }
-
-  return input;
+  return isString(input)
+    ? input.toLowerCase().replace(/\s+/g, replace)
+    : input;
 }

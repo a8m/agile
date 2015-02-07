@@ -14,8 +14,9 @@ function flatten(array, shallow) {
     return array;
   }
 
-  return (!shallow) ? depthFlatten(array, 0) :
-    [].concat.apply([], array);
+  return !shallow
+    ? depthFlatten(array, 0)
+    : [].concat.apply([], array);
 }
 
 /**

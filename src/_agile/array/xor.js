@@ -19,9 +19,9 @@ function xor(col1, col2, expression) {
   function some(el, col) {
     var getter = $parse(expression);
     return col.some(function(dElm) {
-      return expression ?
-        equals(getter(dElm), getter(el)) :
-        equals(dElm, el);
-    })
+      return expression
+        ? equals(getter(dElm), getter(el))
+        : equals(dElm, el);
+    });
   }
 }

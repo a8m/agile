@@ -20,6 +20,7 @@ function first(array) {
   n = (isNumber(args[0])) ? args[0] : 1;
   getter = (!isNumber(args[0]))  ? args[0] : (!isNumber(args[1])) ? args[1] : undefined;
 
-  return (args.length) ? getFirstMatches(array, n,(getter) ? $parse(getter) : getter) :
-    array[0];
+  return (args.length)
+    ? getFirstMatches(array, n,(getter) ? $parse(getter) : getter)
+    : array[0];
 }

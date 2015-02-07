@@ -9,9 +9,7 @@ function trim(input, chars) {
 
   var trim = chars || '\\s';
 
-  if(!isString(input)) {
-    return input;
-  }
-
-  return input.replace(new RegExp('^' + trim + '+|' + trim + '+$', 'g'), '');
+  return isString(input)
+    ? input.replace(new RegExp('^' + trim + '+|' + trim + '+$', 'g'), '')
+    : input;
 }

@@ -9,7 +9,9 @@ function repeat(input, n) {
 
     var times = ~~n;
 
-    return (!isString(input) || !times) ? input : strRepeat(input, n);
+    return (!isString(input) || !times)
+      ? input
+      : strRepeat(input, n);
 }
 
 /**

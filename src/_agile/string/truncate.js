@@ -14,7 +14,7 @@ function truncate(input, length, suffix, preserve) {
 
   if(!isString(input) || (input.length <= length)) return input;
 
-  return input.substring(0, (preserve) ?
-    ((input.indexOf(' ', length) === -1) ? input.length : input.indexOf(' ', length)) :
-    length) + suffix;
+  return input.substring(0, (preserve)
+    ? ((input.indexOf(' ', length) === -1) ? input.length : input.indexOf(' ', length))
+    : length) + suffix;
 }

@@ -6,8 +6,7 @@
  * strip html tags from string
  */
 function stripTags(input) {
-  if(isString(input)) {
-    return input.replace(/<\S[^><]*>/g, '');
-  }
-  return input;
+  return isString(input)
+    ? input.replace(/<\S[^><]*>/g, '')
+    : input;
 }

@@ -11,5 +11,4 @@ function stringular(input) {
   return input.replace(/{(\d+)}/g, function (match, number) {
     return isUndefined(args[number]) ? match : args[number];
   });
-
 }

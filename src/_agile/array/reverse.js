@@ -11,5 +11,7 @@ function reverse(input) {
     return input.split('').reverse().join('');
   }
 
-  return (isArray(input)) ? input.slice().reverse() : input;
+  return (isArray(input))
+    ? input.slice().reverse()
+    : input;
 }
