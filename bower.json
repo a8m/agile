@@ -1,11 +1,11 @@
 {
-  "name": "agile",
-  "version": "0.0.2",
+  "name": "fragile",
+  "version": "0.0.3",
   "main": "dist/agile.js",
-  "description": "Like Underscore, but with zero callbacks and really more fun",
+  "description": "Dirty fix for agile library. Do not use this library, use agile instead.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/a8m/agile.git"
+    "url": "https://github.com/freemanfx/agile.git"
   },
   "dependencies": {
   },
