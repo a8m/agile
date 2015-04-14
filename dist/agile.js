@@ -1,6 +1,6 @@
 /**
  * Like Underscore, but with zero callbacks and really more fun
- * @version v0.0.2 - 2014-11-15 * @link https://github.com/a8m/agile
+ * @version v0.0.2 - 2015-04-14 * @link https://github.com/a8m/agile
  * @author Ariel Mashraki <ariel@mashraki.co.il>
  * @license MIT License, http://www.opensource.org/licenses/MIT
  */
@@ -197,12 +197,11 @@ function afterWhere(array, exp) {
  * @description
  * get an array and specified count, and returns all of the items
  * in the collection after the specified count.
- *
  */
 function after(array, count) {
-  return (isArray(array)) ?
-    array.slice(count) :
-    array;
+  return (isArray(array))
+    ? array.slice(count)
+    : array;
 }
 /**
  * @ngdoc filter
@@ -232,11 +231,10 @@ function beforeWhere(array, exp) {
  * get a array and specified count, and returns all of the items
  * in the array before the specified count.
  */
-
 function before(array, count) {
-  return (isArray(array)) ?
-    array.slice(0, (!count) ? count : --count) :
-    array;
+  return isArray(array)
+    ? array.slice(0, (!count) ? count : --count)
+    : array;
 }
 
 /**
@@ -254,10 +252,10 @@ function contains(array, exp) {
     return true;
   }
 
-  return array.some( function(elm) {
-    return (isObject(elm) || isFunction(exp)) ?
-      $parse(exp)(elm) :
-      elm === exp;
+  return array.some(function(elm) {
+    return (isObject(elm) || isFunction(exp))
+      ? $parse(exp)(elm)
+      : elm === exp;
   });
 }
 /**
@@ -447,8 +445,9 @@ function first(array) {
   n = (isNumber(args[0])) ? args[0] : 1;
   getter = (!isNumber(args[0]))  ? args[0] : (!isNumber(args[1])) ? args[1] : undefined;
 
-  return (args.length) ? getFirstMatches(array, n,(getter) ? $parse(getter) : getter) :
-    array[0];
+  return (args.length)
+    ? getFirstMatches(array, n,(getter) ? $parse(getter) : getter)
+    : array[0];
 }
 /**
  * @name flatten
@@ -466,8 +465,9 @@ function flatten(array, shallow) {
     return array;
   }
 
-  return (!shallow) ? depthFlatten(array, 0) :
-    [].concat.apply([], array);
+  return !shallow
+    ? depthFlatten(array, 0)
+    : [].concat.apply([], array);
 }
 
 /**
@@ -545,11 +545,11 @@ function last(array) {
   n = (isNumber(args[0])) ? args[0] : 1;
   getter = (!isNumber(args[0]))  ? args[0] : (!isNumber(args[1])) ? args[1] : undefined;
 
-  return (args.length) ?
+  return (args.length)
     //send reversed array as arguments, and reverse it back as result
-    getFirstMatches(reversed.reverse(), n,(getter) ? $parse(getter) : getter).reverse() :
+    ? getFirstMatches(reversed.reverse(), n,(getter) ? $parse(getter) : getter).reverse()
     //get the last element
-    reversed[reversed.length-1];
+    : reversed[reversed.length-1];
 }
 
 /**
@@ -734,7 +734,9 @@ function reverse(input) {
     return input.split('').reverse().join('');
   }
 
-  return (isArray(input)) ? input.slice().reverse() : input;
+  return (isArray(input))
+    ? input.slice().reverse()
+    : input;
 }
 /**
  * @name sum
@@ -817,10 +819,10 @@ function xor(col1, col2, expression) {
   function some(el, col) {
     var getter = $parse(expression);
     return col.some(function(dElm) {
-      return expression ?
-        equals(getter(dElm), getter(el)) :
-        equals(dElm, el);
-    })
+      return expression
+        ? equals(getter(dElm), getter(el))
+        : equals(dElm, el);
+    });
   }
 }
 // AngularJS Boolean
@@ -876,6 +878,7 @@ function isDefined(value){return typeof value !== 'undefined';}
  * @returns {boolean} True if `value` is a `Date`.
  */
 function isDate(value) {
+  var toString = (value).toString;
   return toString.call(value) === '[object Date]';
 }
 
@@ -923,6 +926,7 @@ function isEmpty(value) {
  * @returns {boolean} True if `value` is a `Boolean`.
  */
 function isBoolean(value){return typeof value === 'boolean';}
+
 //these methods is kind of common methods for chaining wrappers
 /**
  * @description
@@ -1064,11 +1068,9 @@ function ltrim(input, chars) {
 
   var trim = chars || '\\s';
 
-  if(!isString(input)) {
-    return input;
-  }
-
-  return input.replace(new RegExp('^' + trim + '+'), '');
+  return isString(input)
+    ? input.replace(new RegExp('^' + trim + '+'), '')
+    : input;
 }
 /**
  * @name repeat
@@ -1081,7 +1083,9 @@ function repeat(input, n) {
 
     var times = ~~n;
 
-    return (!isString(input) || !times) ? input : strRepeat(input, n);
+    return (!isString(input) || !times)
+      ? input
+      : strRepeat(input, n);
 }
 
 /**
@@ -1113,11 +1117,9 @@ function rtrim(input, chars) {
 
   var trim = chars || '\\s';
 
-  if(!isString(input)) {
-    return input;
-  }
-
-  return input.replace(new RegExp(trim + '+$'), '');
+  return isString(input)
+    ? input.replace(new RegExp(trim + '+$'), '')
+    : input;
 }
 /**
  * @name slugify
@@ -1130,12 +1132,9 @@ function slugify(input, sub) {
 
   var replace = sub || '-';
 
-  if(isString(input)) {
-    return input.toLowerCase()
-      .replace(/\s+/g, replace);
-  }
-
-  return input;
+  return isString(input)
+    ? input.toLowerCase().replace(/\s+/g, replace)
+    : input;
 }
 /**
  * @name startsWith
@@ -1169,7 +1168,6 @@ function stringular(input) {
   return input.replace(/{(\d+)}/g, function (match, number) {
     return isUndefined(args[number]) ? match : args[number];
   });
-
 }
 /**
  * @name stripTags
@@ -1179,10 +1177,9 @@ function stringular(input) {
  * strip html tags from string
  */
 function stripTags(input) {
-  if(isString(input)) {
-    return input.replace(/<\S[^><]*>/g, '');
-  }
-  return input;
+  return isString(input)
+    ? input.replace(/<\S[^><]*>/g, '')
+    : input;
 }
 /**
  * @name trim
@@ -1195,11 +1192,9 @@ function trim(input, chars) {
 
   var trim = chars || '\\s';
 
-  if(!isString(input)) {
-    return input;
-  }
-
-  return input.replace(new RegExp('^' + trim + '+|' + trim + '+$', 'g'), '');
+  return isString(input)
+    ? input.replace(new RegExp('^' + trim + '+|' + trim + '+$', 'g'), '')
+    : input;
 }
 /**
  * @name truncate
@@ -1217,9 +1212,9 @@ function truncate(input, length, suffix, preserve) {
 
   if(!isString(input) || (input.length <= length)) return input;
 
-  return input.substring(0, (preserve) ?
-    ((input.indexOf(' ', length) === -1) ? input.length : input.indexOf(' ', length)) :
-    length) + suffix;
+  return input.substring(0, (preserve)
+    ? ((input.indexOf(' ', length) === -1) ? input.length : input.indexOf(' ', length))
+    : length) + suffix;
 }
 /**
  * @name ucfirst
@@ -1229,10 +1224,13 @@ function truncate(input, length, suffix, preserve) {
  * upper case first char
  */
 function ucfirst(input) {
-  return isString(input) ? input.split(' ')
-    .map(function (char) {
-      return char.charAt(0).toUpperCase() + char.substring(1);
-    }).join(' ') : input;
+  return isString(input) 
+    ? input.split(' ')
+        .map(function (char) {
+          return char.charAt(0).toUpperCase() + char.substring(1);
+        })
+        .join(' ') 
+    : input;
 }
 
 /**
@@ -1243,13 +1241,9 @@ function ucfirst(input) {
  * Wrap a string with another string
  */
 function wrap(input, wrap, ends) {
-
-  if(!isString(input) || isUndefined(wrap)) {
-    return input;
-  }
-
-  return [wrap, input, ends || wrap].join('');
-
+  return isString(input) && isDefined(wrap)
+    ? [wrap, input, ends || wrap].join('')
+    : input;
 }
 // AngularJS Utils
 /**
