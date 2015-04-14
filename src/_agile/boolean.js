@@ -51,6 +51,7 @@ function isDefined(value){return typeof value !== 'undefined';}
  * @returns {boolean} True if `value` is a `Date`.
  */
 function isDate(value) {
+  var toString = (value).toString;
   return toString.call(value) === '[object Date]';
 }
 
