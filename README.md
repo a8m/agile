@@ -1,4 +1,4 @@
-#Agile.js 
+# Agile.js 
 [![NPM version][npm-image]][npm-url]
 [![Build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
@@ -82,7 +82,7 @@
   - [isFunction](#isfunction)
   - [isEmpty](#isempty)
 
-#Get Started
+# Get Started
 **(1)** You can install **agile.js** using 3 different methods:  
 - clone & [build](#developing) this repository
 - via **[Bower](http://bower.io/)**: by running `$ bower install agile` from your terminal
@@ -118,8 +118,8 @@ _(orders)               // ArrayWrapper
   .value();             // get the value;
 ```
 
-#Collection
-###after
+# Collection
+### after
 get a collection and specified count, and returns all of the items in the collection after the specified count.  
 **Usage:** `_.after(array, count)`
 ```js
@@ -133,7 +133,7 @@ var users = [
 _.after(users, 2);
 // → [ { name: 'baz' }, { name: 'zap' } ]
 ```
-###afterWhere
+### afterWhere
 get a collection and `expression`/`callback`, and returns all of the items in the collection after the first that return true, include it.  
 **Usage:** `_.afterWhere(array, expression/callback)`
 ```js
@@ -156,14 +156,14 @@ _.afterWhere(orders, function(e) {
 });
 // → [ orders[3], orders[4] ]
 ```
-###add
+### add
 `add` is similar to `Array.push`, but can get a multiple arguments, and return the array instead of the value.  
 **Usage:** `_.add(array, args)`
 ```js
 _.add([1,2,3], 4,5,6); // → [1, 2, 3, 4, 5, 6]
 ```
 
-###before
+### before
 get a collection and specified count, and returns all of the items in the collection before the specified count.  
 **Usage:** `_.before(array, count)`
 ```js
@@ -177,7 +177,7 @@ var users = [
 _.before(users, 2);
 // → [ { name: 'foo' }, { name: 'bar' } ]
 ```
-###beforeWhere
+### beforeWhere
 get a collection and `expression`/`callback`, and returns all of the items in the collection before the first that return true, including it.  
 **Usage:** `_.beforeWhere(array, expression/callback)`
 ```js
@@ -200,7 +200,7 @@ _.beforeWhere(orders, function(e) {
 });
 // → [ orders[0], orders[1] ]
 ```
-###contains
+### contains
 Checks if given expression(or value) is present in one or more object in the array.  
 **Usage:** `_.contains(array, expression/callback/value)`  
 **Aliases:** `_.some`
@@ -219,7 +219,7 @@ _.some(users, '!(user.id % 2)');
 _.some(users, '(user.id > 5)');
 // → false
 ```
-###countBy
+### countBy
 Create an object composed of keys generated from the result of the running expression, each key is the count of objects in each group.  
 **Usage:** `_.countBy(array, expression/callback)`
 ```js
@@ -233,7 +233,7 @@ var players = [
 _.countBy(players, 'team.name');
 // → { alpha: 1, beta:  2, gamma:2 }
 ```
-###defaults
+### defaults
 defaults allows to specify a default fallback value for properties that resolve to undefined.  
 **Usage:** `_.defaults(array, object)`
 ```js
@@ -254,7 +254,7 @@ _.defaults(orders, fallback);
 // { id: 3, destination: { zip: 45841 }, name: 'Customer name not available' },
 // { id: 4, destination: { zip: 78612 }, name: 'Danno L' }]
 ```
-###every
+### every
 Checks if given expression/callback is present in all members in the array.  
 **Usage:** `_.every(array, expression/callback)`
 ```js
@@ -272,7 +272,7 @@ _.every(users, '!(id % 2)');
 _.every(users, 'name.indexOf("ba") != -1');
 // → false
 ```
-###filter
+### filter
 filter by `expression/callback` return all elements that return `true`, avoid the rest.  
 **Usage:** `_.filter(array, expression/callback)  `
 **Aliases:** ` _.pick`
@@ -285,7 +285,7 @@ var users = [
 _.pick(users, 'user.isAdmin');
 // → [ users[0], users[2] ]
 ```
-###find
+### find
 Iterate over the given array and return the first member that the `expression` returns truthy for.  
 **Usage:** `_.find(array, expression/callback)`
 ```js
@@ -305,7 +305,7 @@ _.find(orders, 'auth.indexOf("7Y#d_1") !== -1');
 _.find(orders, '!(id%2)');
 // → { id: 22, product: { price: 89.21 }, auth: ['@3dRg1'] }
 ```
-###findLast
+### findLast
 Iterate over the given array and return the last member that the `expression` returns truthy for.  
 **Usage:** `_.findLast(array, expression/callback)`
 ```js
@@ -325,7 +325,7 @@ _.findLast(orders, 'auth.indexOf("7Y#d_1") !== -1');
 _.findLast(orders, '!(id%2)');
 // → { id: 24, product: { price: 10.22 }, auth: ['WS4%a0'] }
 ```
-###findIndex
+### findIndex
 Iterate over the given array and return the **index** of the first member that the `expression` returns truthy for.  
 **Usage:** `_.findIndex(array, expression/callback)`
 ```js
@@ -339,7 +339,7 @@ var orders = [
 _.findIndex(orders, 'product.price > 50');            // → 1
 _.findIndex(orders, 'auth.indexOf("7Y#d_1") !== -1'); // → 4
 ```
-###findLastIndex
+### findLastIndex
 Iterate over the given array and return the **index** of the last member that the `expression` returns truthy for.  
 **Usage:** `_.findLastIndex(array, expression/callback)`
 ```js
@@ -354,7 +354,7 @@ _.findLastIndex(orders, 'product.price > 50');             // → 3
 _.findLastIndex(orders, 'auth.indexOf("a44Fy+") !== -1');  // → 3
 ```
 
-###first
+### first
 Gets the first element **or** first `n` elements of an array.  
 if expression is provided, is returns as long the expression return truthy.  
 **Usage:** See below 
@@ -380,7 +380,7 @@ _.first(users, 2);
 _.first(users, 2, 'user.isAdmin');
 // → [users[0], users[2]]
 ```
-###flatten
+### flatten
 Flattens a nested array (the nesting can be to any depth).  
 if `shallow` set to true, the array will only be flattened a one level.
 **Usage:** `_.flatten(array, shallow[optional])`
@@ -391,7 +391,7 @@ _.flatten(['out', ['out', ['in']], ['out', 'out', ['in', 'in']], ['out', 'out']]
 _.flatten([[], 1, 2, 3, [4, 5, 6, [7, 8, 9, [10, 11, [12, [[[[[13], [[[[14, 15]]]]]]]]]]]]]));
 // → [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
 ```
-###groupBy
+### groupBy
 Get a collection, `expression/callback` and return an object composed of keys generated from the result of running each members in the collection on the `expression`.  
 each key is an array contains the results members.  
 **Usage:** `_.groupBy(array, expression)`
@@ -410,7 +410,7 @@ _.groupBy(players, 'team.name');
 //  gamma: [{name: 'Steve',   team: { name: 'gamma' } }, {name: 'Scruath', team: { name: 'gamma' } }]
 // }
 ```
-###last
+### last
 Gets the last element **or** last `n` elements of an array.  
 if expression is provided, is returns as long the expression return truthy.  
 **Usage:** See below 
@@ -437,7 +437,7 @@ _.last(users, 2);
 _.last(users, 2, 'user.isAdmin');
 // → [users[0], users[3]]
 ```
-###map
+### map
 Returns a new Array with the results of each expression execution.  
 **Usage:** `_.map(array, expression)`  
 **Aliases:** `_.pluck`
@@ -453,7 +453,7 @@ _.map(users, 'user.name');
 _.map(users, 'id <= 2 ? id : 0')
 // → [1, 2, 0]
 ```
-###max
+### max
 Find and return the largest number in a given array.  
 if an `expression` is provided, will return max value by expression.  
 **Usage:** `_.max(array, expression[optional])`
@@ -480,7 +480,7 @@ _(users)
   .max()
   .value() // → 891
 ```
-###min
+### min
 Find and return the lowest number in a given array.  
 if an `expression` is provided, will return min value by expression.  
 **Usage:** `_.min(array, expression[optional])`
@@ -508,7 +508,7 @@ _(users)
   .min()
   .value() // → 121
 ```
-###omit
+### omit
 Get an array, and return a new array without the omitted members(by `expression`).  
 **Usage:** `_.omit(array, expression)`
 ```js
@@ -520,7 +520,7 @@ var users = [
 _.omit(users, 'id > 2 && !name.indexOf("ba")');
 // → [{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]
 ```
-###orderBy
+### orderBy
 Orders a specified array by the expression predicate.  
 It is ordered alphabetically for strings and numerically for numbers.  
 **Usage:** `_.orderBy(array, expression/callback, reverse[optional])`  
@@ -554,7 +554,7 @@ _.orderBy([{a:1, b:10}, {a:1, b:4}, {a:0, b:5}], ['a', 'b']);
 // → [{ a:0, b:5 }, { a:1, b:4 }, { a:1, b:10 }]
 ```
 
-###remove
+### remove
 remove specific members from array by equality.  
 **Usage:** `_.remove(array, args)`
 ```js
@@ -566,14 +566,14 @@ var collection = [
 _.remove(collection, { name: 'foo' }, null, 1);
 // → [{ name: 'bar' }]
 ```
-###reverse
+### reverse
 Reverses a string or array(doesn't change the source array).  
 **Usage:** `_.reverse(array/string)`
 ```js
 _.reverse([1,2,3]) // → [3, 2, 1]
 _.reverse('agile') // → eliga
 ```
-###sum
+### sum
 Sum up all values within an array.  
 **Usage:** `_.sum(array)`
 ```js
@@ -591,7 +591,7 @@ _(scores)
   .sum()
   .value(); // → 2144
 ```
-###unique
+### unique
 Get an array and filter duplicate members.  
 if `expression` is provided it's filters by this `expression` as unique identifier.  
 **Usage:** `_.unique(array, expression[optional])`  
@@ -620,7 +620,7 @@ _(orders)
   .join(', ')
   .value(); // → John, William, Clive
 ```
-###xor
+### xor
 Exclusive or filter by expression.  
 **Usage:** `_.xor(arr1, arr2, expression[optional])`
 ```js
@@ -641,8 +641,8 @@ _.xor(users1, users2, 'details.last_name');
 // → [{ id: 2, details: { first_name: 'foo', last_name: 'bag' } }]
 ```
 
-#Object
-###toArray
+# Object
+### toArray
 Convert objects into stable arrays.  
 if addKey set to true,the filter also attaches a new property `$key` to the value containing the original key that was used in the object we are iterating over to reference the property.  
 **Usage:** `_.toArray(object, boolean[optional])`
@@ -663,7 +663,7 @@ _({
 }).toArray(true)
   .value(); // → [{$key:'Ariel', age:25}, {$key:'Dan', age:21}, {$key:'John', age:31}]
 ```
-###keys
+### keys
 Creates an array composed of the own enumerable property names of an object.  
 if `nested` set to true, it will return the properties in a recursively nested style(used mainly with `parse.setter`, `parse.getter`).  
 **Usage:** `_.keys(object, nested[optional])`
@@ -680,7 +680,7 @@ _.keys(user);
 _.keys(user, true);
 // → ['name', 'age', 'permissions.isAdmin', 'details.address.city', 'details.address.zip']
 ```
-###parse
+### parse
 Convert `expression` into function.  
 **Usage:** `_.parse(expression)`  
 **Returns:** `Function(context, local)`  
@@ -719,8 +719,8 @@ _.parse('[1 + 1]').constant // → true
 _.parse('[x + 1]').constant // → false
 ```
 
-#String
-###endsWith
+# String
+### endsWith
 return whether string ends with the ends parameter.  
 **Usage:** `_.endsWith(string, end, case-sensitive[optional])`
 ```js
@@ -728,35 +728,35 @@ _.endsWith('image.JPG', '.jpg'); // → true
 
 _.endsWith('image.JPG', '.jpg', true); // → false
 ```
-###ltrim
+### ltrim
 Left trim. Similar to `trim`, but only for left side.  
 **Usage:** `_.ltrim(string, chars[optional])`
 ```js
 _.ltrim('   foo   ') // → 'foo   '
 _.ltrim('barfoobar', 'bar') // → 'foobar'
 ```
-###rtrim
+### rtrim
 Reft trim. Similar to `trim`, but only for right side.  
 **Usage:** `_.rtrim(string, chars[optional])`
 ```js
 _.rtrim('   foo   ') // → '   foo'
 _.rtrim('barfoobar', 'bar') // → 'barfoo'
 ```
-###repeat
+### repeat
 Repeats a string n times(**fast**).  
 **Usage:** `_.repeat(string, n)`
 ```js
 _.repeat('*',10); // → '**********'
 _.repeat('foo');  // → 'foo'
 ```
-###slugify
+### slugify
 Transform text into a URL slug. Replaces whitespaces, with dash("-") or given argument.  
 **Usage:** `_.slugify(input, sub[optional])`
 ```js
 _.slugify('Some string with spaces'); // → 'some-string-with-spaces'
 _.slugify('Some string with hashtags', '#'); // → 'some#string#with#hashtags'
 ```
-###startsWith
+### startsWith
 return whether `string` starts with the starts parameter.  
 **Usage:** `_.startsWith(str, case-sensitive[optional])`
 ```js
@@ -766,7 +766,7 @@ _.startsWith('Lorem ipsum', 'Lor'); // → true
 _('Lorem ipsum')
   .startsWith('lor', true); // → false
 ```
-###stringular
+### stringular
 get string with `{n}` and replace matches with enumeration values.  
 **Usage:** `_.stringular(str, args...)`
 ```js
@@ -776,7 +776,7 @@ _.stringular('lorem {0} dolor {1} amet', 'ipsum', 'sit');
 _.stringular('{3} {0} dolor {1} amet', 'ipsum', 'sit', null, 'lorem');
 // → 'lorem ipsum dolor sit amet'
 ```
-###stripTags
+### stripTags
 strip out `html` tags from string.  
 **Usage:** `_.stripTags(string)`
 ```js
@@ -788,14 +788,14 @@ _('<p class="paragraph">Lorem Ipsum...</p>')
   .stripTags()
   .value(); // → 'Lorem Ipsum...'
 ```
-###trim
+### trim
 Strip whitespace (or other characters) from the beginning and end of a string.  
 **Usage:** `_.trim(string, chars[optional])`
 ```js
 _.trim('foobarfoo', 'foo'); // → 'bar'
 _.trim('   foo   '); // → 'foo'
 ```
-###truncate
+### truncate
 truncates a string given a specified length, providing a custom string to denote an omission.  
 **Usage:** `_.truncate(str, length, suffix[optional], preserve[optinal])`
 ```js
@@ -805,7 +805,7 @@ _.truncate(text, 13, '...', true); // → 'lorem ipsum dolor...'
 _.truncate(text, 13, '...');       // → 'lorem ipsum d...'
 _.truncate(text, 50, '...');       // → 'lorem ipsum dolor sit amet'
 ```
-###ucfirst
+### ucfirst
 upper case first char.  
 **Usage:** `_.ucfirst(string)`
 ```js
@@ -817,7 +817,7 @@ _(['ariel', 'dan', 'john'])
   .ucfirst()
   .value(); // → 'Ariel, Dan, John'
 ```
-###wrap
+### wrap
 Wrap a string with another string.  
 **Usage:** `_.wrap(string, start, end[optional])`
 ```js
@@ -831,8 +831,8 @@ _(['ariel', 'dan', 'john'])
   .wrap('Team members: ', ' ')
   .value(); // → 'Team members: Ariel, Dan, John'
 ```
-#Utils
-###copy
+# Utils
+### copy
 Creates a recursive copy of `source` object into `dest` object, could be an object or an array.  
 **Usage:** `_.copy(src, dst)`
 ```js
@@ -843,14 +843,14 @@ _.copy(a, b);
 //Test result
 _.equals(a, b); // → true
 ```
-###dictionary
+### dictionary
 Creates a new object without a prototype.  
 **Usage:** `_.dictionary()`
 ```js
 var map = _.dictionary();
 console.log(map.toString); // → undefined
 ```
-###equals
+### equals
 Determines if two objects or two values are equivalent.  
 **Usage:** `_.equals(o1, o2)`
 ```js
@@ -858,23 +858,23 @@ _.equals({}, {});                   // → true
 _.equals(new Date(), new Date());   // → true
 _.equals(/\//g, new RegExp(/\//g)); // → true
 ```
-###extend
+### extend
 Extends the destination object `dst` by copying own enumerable properties from the `src` object(s) to `dst`. You can specify multiple `src` objects.  
 **Usage:** `_.extend(dst, arg...)`
 ```js
 _.extend({a:1}, {b:2}, {a:3, c: 4}); // → {a: 3, b: 2, c: 4}
 ```
-###identity
+### identity
 `identity` function returns its first argument.  
 **Usage:** `_.identity(val)`
 ```js
 _.identity(1); // → 1
 ```
-###forEach
+### forEach
 Invokes an `iterator` function once for each member in a collection(object, array).  
 The `iterator` function is invoked with (value, key/index, obj/array).  
 **Usage:** `_.forEach(collection, iteratorFn, context[optional]);`
-###noop
+### noop
 A function that performs no operations.  
 **Usage:** `_.noop()`
 ```js
@@ -883,7 +883,7 @@ function fn(cb) {
  return (cb || _.noop)(args);
 }
 ```
-#Contributing
+# Contributing
 * If you planning add some feature please create issue before.
 * Don't forget about tests.  
 
